@@ -1,0 +1,64 @@
+{
+"words": [
+  {
+    "id": 1,
+    "word": "Christmas",
+    "transcription": "[ˈkrɪsməs]",
+    "translation": "Рождество"
+  },
+  {
+    "id": 2,
+    "word": "must",
+    "transcription": "[mʌst]",
+    "translation": "должен, обязан"
+  },
+  {
+    "id": 3,
+    "word": "not",
+    "transcription": "[nɒt]",
+    "translation": "нет, не, ни"
+  },
+  {
+    "id": 4,
+    "word": "bad",
+    "transcription": "[bæd]",
+    "translation": "плохой"
+  },
+  {
+    "id": 5,
+    "word": "opportunity",
+    "transcription": "[ɒpəˈtjuː nɪtɪ]",
+    "translation": "возможность, перспектива"
+  },
+  {
+    "id": 6,
+    "word": "find",
+    "transcription": "[faɪnd]",
+    "translation": "находить, искать"
+  },
+  {
+    "id": 7,
+    "word": "ready",
+    "transcription": "[ˈredɪ]",
+    "translation": "готовый"
+  },
+  {
+    "id": 8,
+    "word": "inside",
+    "transcription": "[ɪnˈsaɪd]",
+    "translation": "внутри"
+  },
+  {
+    "id": 9,
+    "word": "outside",
+    "transcription": "[ˈaʊtsaɪd]",
+    "translation": "снаружи"
+  },
+  {
+    "id": 10,
+    "word": "please",
+    "transcription": "[pliːz] ",
+    "translation": "пожалуйста"
+  }
+]
+}

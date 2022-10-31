@@ -1,0 +1,1 @@
+const fontBreeSerif = 'BreeSerif-Regular';

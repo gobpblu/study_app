@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:study_app/features/realtime_database/service/realtime_database_service.dart';
 import 'package:study_app/features/words/models/word.dart';
 import 'package:study_app/features/words/models/word_tile_item.dart';
 
@@ -31,6 +33,8 @@ class WordsRepositoryImpl {
   }
 
   List<WordTileItem> loadAllWordTiles() {
+    final db = Get.put(RealtimeDatabaseService());
+    final words = db.loadWords(1, 20);
     return <WordTileItem>[
       const WordTileItem(firstId: 1, lastId: 20, title: 'Lesson 1'),
     ];

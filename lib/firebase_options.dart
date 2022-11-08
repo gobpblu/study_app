@@ -49,6 +49,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '53234149349',
     projectId: 'study-app-d1704',
     authDomain: 'study-app-d1704.firebaseapp.com',
+    databaseURL: 'https://study-app-d1704-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'study-app-d1704.appspot.com',
     measurementId: 'G-KBZBBQG7RD',
   );
@@ -58,6 +59,7 @@ class DefaultFirebaseOptions {
     appId: '1:53234149349:android:aa916b34f720217987710c',
     messagingSenderId: '53234149349',
     projectId: 'study-app-d1704',
+    databaseURL: 'https://study-app-d1704-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'study-app-d1704.appspot.com',
   );
 
@@ -66,7 +68,9 @@ class DefaultFirebaseOptions {
     appId: '1:53234149349:ios:00399a9ce453850d87710c',
     messagingSenderId: '53234149349',
     projectId: 'study-app-d1704',
+    databaseURL: 'https://study-app-d1704-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'study-app-d1704.appspot.com',
+    androidClientId: '53234149349-0b1bu56593ha68lcgu4vi0qlsol61ihn.apps.googleusercontent.com',
     iosClientId: '53234149349-8dqg9ah48khqp8on6r4jdrrjqvidmu8o.apps.googleusercontent.com',
     iosBundleId: 'com.example.studyApp',
   );
@@ -76,7 +80,9 @@ class DefaultFirebaseOptions {
     appId: '1:53234149349:ios:00399a9ce453850d87710c',
     messagingSenderId: '53234149349',
     projectId: 'study-app-d1704',
+    databaseURL: 'https://study-app-d1704-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'study-app-d1704.appspot.com',
+    androidClientId: '53234149349-0b1bu56593ha68lcgu4vi0qlsol61ihn.apps.googleusercontent.com',
     iosClientId: '53234149349-8dqg9ah48khqp8on6r4jdrrjqvidmu8o.apps.googleusercontent.com',
     iosBundleId: 'com.example.studyApp',
   );

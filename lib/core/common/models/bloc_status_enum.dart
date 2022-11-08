@@ -1,0 +1,1 @@
+enum BlocStatusEnum { initial, success, failure }

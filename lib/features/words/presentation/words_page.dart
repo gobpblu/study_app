@@ -15,12 +15,6 @@ class WordsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // repository.addImage();
-    // WordsDatabase.instance.deleteTable();
-    // WordsDatabase.instance.createDB(db, version)
-    // loadWord();
-    // repository.createWordWithAudio();
-    // WordsDatabase.instance.deleteTableAndRecreate();
     return BlocProvider(
       create: (context) => WordsBloc()..add(LoadAllWords()),
       child: Scaffold(
@@ -75,27 +69,4 @@ class WordsPage extends StatelessWidget {
       ),
     );
   }
-
-  void loadWord(BuildContext context) async {
-    final words = await repository.readWord();
-    final image = words.firstWhere((element) => element.id == 3);
-    // audioPlayer.resume();
-  }
 }
-
-/*if (state.image != null) {
-                  return Container(
-                    width: 150,
-                    height: 150,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(fit: BoxFit.cover, image: MemoryImage(state.image!)),
-                    ),
-                  );*/
-// return CircleAvatar(
-// backgroundImage: MemoryImage(state.image!),
-// );
-// })
-// Image(image: NetworkImage('https://drive.google.com/uc?export=view&id=1szqiSYJ1LClOhViHHvXM9aZGTwc-qXxT')),
-// Image.network('https://drive.google.com/uc?export=view&id=1enFrCA17boYga_Y5XvtPTz2XTxB-2W--'),
-//   ],
-// ),

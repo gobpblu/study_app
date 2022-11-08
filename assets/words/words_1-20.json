@@ -15,7 +15,7 @@
   },
   {
     "id": 3,
-    "word": "to give",
+    "word": "give",
     "american_transcription": "[gɪv]",
     "british_transcription": "[gɪv]",
     "translation": "давать"
@@ -36,7 +36,7 @@
   },
   {
     "id": 6,
-    "word": "to take off",
+    "word": "take off",
     "american_transcription": "[ˈteɪk ˈɒf]",
     "british_transcription": "[ˈteɪkɒf]",
     "translation": "снимать"
@@ -50,7 +50,7 @@
   },
   {
     "id": 8,
-    "word": "to see",
+    "word": "see",
     "american_transcription": "[siː]",
     "british_transcription": "[siː]",
     "translation": "видеть"
@@ -71,7 +71,7 @@
   },
   {
     "id": 11,
-    "word": "to make",
+    "word": "make",
     "american_transcription": "[meɪk]",
     "british_transcription": "[meɪk]",
     "translation": "делать, производить"
@@ -85,14 +85,14 @@
   },
   {
     "id": 13,
-    "word": "to move",
+    "word": "move",
     "american_transcription": "[muːv]",
     "british_transcription": "[muːv]",
     "translation": "двигаться, переезжать"
   },
   {
     "id": 14,
-    "word": "to like",
+    "word": "like",
     "american_transcription": "[laɪk]",
     "british_transcription": "[laɪk]",
     "translation": "нравиться"
@@ -106,21 +106,21 @@
   },
   {
     "id": 16,
-    "word": "to hug",
+    "word": "hug",
     "american_transcription": "[hʌg]",
     "british_transcription": "[hʌg]",
     "translation": "обнимать"
   },
   {
     "id": 17,
-    "word": "to smile",
+    "word": "smile",
     "american_transcription": "[smaɪl]",
     "british_transcription": "[smaɪl]",
     "translation": "улыбаться"
   },
   {
     "id": 18,
-    "word": "to live",
+    "word": "live",
     "american_transcription": "[lɪv]",
     "british_transcription": "[lɪv]",
     "translation": "жить"

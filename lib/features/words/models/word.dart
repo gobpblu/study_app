@@ -19,7 +19,7 @@ class WordField {
 }
 
 class Word extends Equatable {
-  final int? id;
+  final int id;
   final String word;
   final String americanTranscription;
   final String britishTranscription;
@@ -29,7 +29,7 @@ class Word extends Equatable {
   final String britishAudio;
 
   const Word({
-    this.id,
+    required this.id,
     required this.word,
     required this.americanTranscription,
     required this.britishTranscription,

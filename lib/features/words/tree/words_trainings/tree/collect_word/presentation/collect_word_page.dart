@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:study_app/features/words/models/word.dart';
 
 import '../bloc/collect_word_cubit.dart';
@@ -22,7 +23,7 @@ class CollectWordPage extends StatelessWidget {
       create: (context) => CollectWordCubit(words, firstId, lastId),
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Карточки'),
+          title: Text('collect_word_title'.tr),
           actions: [
             BlocBuilder<CollectWordCubit, CollectWordState>(
               builder: (context, state) {
@@ -34,127 +35,63 @@ class CollectWordPage extends StatelessWidget {
             ),
           ],
         ),
-        body: BlocBuilder<CollectWordCubit, CollectWordState>(
-          builder: (context, state) {
-            return SingleChildScrollView(
-              child: Column(children: [
-                const SizedBox(height: 16),
-                Image.asset(
-                  state.words[state.id].image,
-                  height: 200,
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  state.words[state.id].word,
-                  style: const TextStyle(fontSize: 32),
-                ),
-                const SizedBox(height: 16),
-                const Divider(thickness: 0.5),
-                const SizedBox(height: 16),
-                Text(
-                  state.words[state.id].translation,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                      fontSize: 28, fontFamily: 'Times New Roman'),
-                ),
-                const SizedBox(height: 16),
-                const Divider(thickness: 0.5),
-                const SizedBox(height: 16),
-                const _LanguageLabel(language: 'American'),
-                const SizedBox(height: 16),
-                Text(
-                  state.words[state.id].americanTranscription,
-                  style: const TextStyle(
-                    fontSize: 24,
-                    fontFamily: 'Cambria',
-                  ),
-                ),
-                IconButton(
-                  onPressed: () {
-                    context.read<CollectWordCubit>().playAmericanAudio();
-                  },
-                  icon: const Icon(
-                    Icons.play_arrow,
-                    size: 48,
-                  ),
-                  iconSize: 48,
-                ),
-                const _NextAndPreviousButtons(),
-                const _LanguageLabel(language: 'British'),
-                const SizedBox(height: 16),
-                Text(
-                  state.words[state.id].britishTranscription,
-                  style: const TextStyle(
-                    fontSize: 24,
-                    fontFamily: 'Cambria',
-                  ),
-                ),
-                IconButton(
-                  onPressed: () {
-                    context.read<CollectWordCubit>().playBritishAudio();
-                  },
-                  icon: const Icon(
-                    Icons.play_arrow,
-                    size: 48,
-                  ),
-                  iconSize: 48,
-                ),
-              ]),
-            );
-          },
-        ),
+        body: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+          ProgressMarks(),
+          Expanded(
+            flex: 4,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: BlocBuilder<CollectWordCubit, CollectWordState>(
+                builder: (context, state) {
+                  return Image.asset(
+                    state.words[state.id].image,
+                  );
+                },
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+            Expanded(
+              flex: 1,
+              child: Align(
+                alignment: Alignment.center,
+                child: BlocBuilder<CollectWordCubit, CollectWordState>(
+                    builder: (context, state) {
+                  return Text(
+                    state.words[state.id].translation,
+                    style: const TextStyle(fontSize: 32),
+                    textAlign: TextAlign.center,
+                  );
+                }),
+              ),
+            ),
+          const Expanded(
+            flex: 3,
+              child: Align(
+                alignment: Alignment.bottomCenter,
+            child: CollectWordComponent(),
+          ))
+        ]),
       ),
     );
   }
 }
 
-class _NextAndPreviousButtons extends StatelessWidget {
-  const _NextAndPreviousButtons({Key? key}) : super(key: key);
+class ProgressMarks extends StatelessWidget {
+  const ProgressMarks({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        IconButton(
-          iconSize: 48,
-          onPressed: () {
-            context.read<CollectWordCubit>().showPreviousWord();
-          },
-          icon: const Icon(Icons.keyboard_arrow_left, size: 48),
-        ),
-        const Expanded(child: Divider(thickness: 0.5)),
-        IconButton(
-          iconSize: 48,
-          onPressed: () {
-            context.read<CollectWordCubit>().checkWord();
-          },
-          icon: const Icon(Icons.keyboard_arrow_right, size: 48),
-        ),
-      ],
-    );
-  }
-}
-
-class _LanguageLabel extends StatelessWidget {
-  const _LanguageLabel({Key? key, required this.language}) : super(key: key);
-
-  final String language;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Colors.white,
-      ),
-      child: Text(
-        language,
-        style: TextStyle(
-          fontSize: 18,
-          color: Colors.grey[800],
-        ),
-      ),
+    return BlocBuilder<CollectWordCubit, CollectWordState>(
+      builder: (context, state) {
+        return Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: state.wordStates
+              .map((e) => CircleMark(color: e.getAppropriateColor()))
+              .toList(),
+        );
+      },
     );
   }
 }
@@ -167,12 +104,87 @@ class CircleMark extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: const EdgeInsets.all(1),
       height: 16,
       width: 16,
-      color: color,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(100),
+        borderRadius: BorderRadius.circular(10),
+        color: color,
       ),
     );
+  }
+}
+
+class CollectWordComponent extends StatelessWidget {
+  const CollectWordComponent({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        BlocBuilder<CollectWordCubit, CollectWordState>(
+            buildWhen: (previous, current) =>
+                previous.formedWord != current.formedWord,
+            builder: (context, state) {
+              return TextField(
+                controller: TextEditingController(text: state.formedWord),
+              );
+            }),
+        const SizedBox(
+          height: 16,
+        ),
+        BlocBuilder<CollectWordCubit, CollectWordState>(
+          buildWhen: (previous, current) => previous.id != current.id,
+          builder: (context, state) {
+            return CharactersPool(word: state.words[state.id].word);
+          },
+        ),
+      ],
+    );
+  }
+}
+
+class CharactersPool extends StatelessWidget {
+  const CharactersPool({Key? key, required this.word}) : super(key: key);
+
+  final String word;
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      children: shuffleCharacters(word)
+          .map((e) => GestureDetector(
+                onTap: () {
+                  context.read<CollectWordCubit>().addNewCharacter(e);
+                },
+                child: Container(
+                  width: 64,
+                  height: 64,
+                  margin: EdgeInsets.all(4),
+                  padding: EdgeInsets.all(4),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.white38,
+                  ),
+                  child: Text(
+                    e,
+                    style: const TextStyle(
+                      fontSize: 44,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ))
+          .toList(),
+    );
+  }
+
+  List<String> shuffleCharacters(String word) {
+    List<String> characters = [];
+    word.characters.forEach((element) {
+      characters.add(element);
+    });
+    characters.shuffle();
+    return characters;
   }
 }

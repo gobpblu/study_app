@@ -1,12 +1,12 @@
 class RawWord {
-  final int? id;
+  final int id;
   final String word;
   final String americanTranscription;
   final String britishTranscription;
   final String translation;
 
   const RawWord({
-    this.id,
+    required this.id,
     required this.word,
     required this.americanTranscription,
     required this.britishTranscription,

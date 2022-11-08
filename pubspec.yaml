@@ -1,7 +1,7 @@
 name: study_app
 description: A new Flutter project.
 
-publish_to: 'none' 
+publish_to: 'none'
 
 version: 1.0.0+1
 
@@ -29,12 +29,20 @@ dependencies:
   just_audio: ^0.9.30
   audioplayers: ^1.1.1
   firebase_auth: ^3.11.2
+  google_sign_in: ^5.4.2
+  firebase_database: ^9.1.7
+  shared_preferences: ^2.0.15
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  path_provider: ^2.0.11
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   flutter_lints: ^2.0.1
+  hive_generator: ^2.0.0
+  build_runner: ^2.3.2
 
 flutter:
   uses-material-design: true
@@ -48,6 +56,8 @@ flutter:
     - assets/words/images/
     - assets/dialogs/
     - assets/texts/
+    - assets/audio/signals/
+    - assets/words/audio/numbers/
 
 flutter_intl:
   enabled: true

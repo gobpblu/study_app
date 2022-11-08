@@ -45,8 +45,9 @@ class WordsTrainingsPage extends StatelessWidget {
               mainAxisSpacing: 16,
               crossAxisSpacing: 24,
               children: const [
-                const _GridCards(cardTitle: 'Карточки'),
-                const _GridTrainingCards(cardTitle: 'Собери слово'),
+                _GridCards(cardTitle: 'Карточки'),
+                _GridTrainingCards(cardTitle: 'Тренировочные карточки'),
+                _CollectWordCard(cardTitle: 'Собери слово'),
               ],
             );
           }
@@ -176,6 +177,72 @@ class _GridTrainingCards extends StatelessWidget {
   }
 }
 
+class _CollectWordCard extends StatelessWidget {
+  const _CollectWordCard({Key? key, required this.cardTitle, this.cardColor}) : super(key: key);
+
+  final String cardTitle;
+  final Color? cardColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<WordsTrainingsCubit, WordsTrainingsState>(
+      builder: (context, state) {
+        return GestureDetector(
+          onTap: () {
+            Get.to(CollectWordPage(
+              words: state.words.take(10).toList(),
+              firstId: state.firstId,
+              lastId: state.lastId,
+            ));
+          },
+          child: Align(
+            alignment: Alignment.topCenter,
+            child: SizedBox(
+              width: 192,
+              height: 180,
+              child: Card(
+                margin: const EdgeInsets.all(16),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)),
+                color: cardColor ?? Colors.grey[800],
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 24),
+                    _RectangleWithLines(
+                        cardColor: cardColor ?? Colors.grey[700]!),
+                    const SizedBox(height: 8),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                      _CharacterContainer(),
+                      SizedBox(width: 4),
+                      _CharacterContainer(),
+                      SizedBox(width: 4),
+                      _CharacterContainer(),
+                      SizedBox(width: 4),
+                      _CharacterContainer(),
+                    ],),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Text(
+                      cardTitle,
+                      textAlign: TextAlign.center,
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+
 class _RectangleWithLines extends StatelessWidget {
   const _RectangleWithLines({Key? key, required this.cardColor})
       : super(key: key);
@@ -224,6 +291,19 @@ class _RectangleWithoutLines extends StatelessWidget {
       padding: const EdgeInsets.all(4),
       height: 28,
       width: 62,
+      color: Colors.white,
+    );
+  }
+}
+
+class _CharacterContainer extends StatelessWidget {
+  const _CharacterContainer({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 12,
+      height: 16,
       color: Colors.white,
     );
   }

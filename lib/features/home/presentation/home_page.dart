@@ -3,6 +3,8 @@ import 'package:study_app/features/dialogs/presentation/dialogs_page.dart';
 import 'package:study_app/features/texts/presentation/texts_page.dart';
 import 'package:study_app/features/words/presentation/words_page.dart';
 
+import '../../words/presentation/words_page_2.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -15,7 +17,7 @@ class _HomePageState extends State<HomePage> {
 
   List pages = [
     WordsPage(),
-    WordsPage(),
+    WordsPage2(),
     TextsPage(),
     DialogsPage(),
   ];
@@ -27,7 +29,7 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.wordpress), label: 'WORDS'),
-          BottomNavigationBarItem(icon: Icon(Icons.wordpress), label: 'WORDS'),
+          BottomNavigationBarItem(icon: Icon(Icons.wordpress), label: 'WORDS 2.0'),
           BottomNavigationBarItem(
               icon: Icon(Icons.back_hand_outlined), label: 'TEXTS'),
           BottomNavigationBarItem(

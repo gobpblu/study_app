@@ -19,24 +19,22 @@ class WordField {
 }
 
 class Word extends Equatable {
-  final int id;
   final String word;
   final String americanTranscription;
   final String britishTranscription;
   final String translation;
-  final String image;
-  final String americanAudio;
-  final String britishAudio;
+  final String? image;
+  final String audio;
+  // final String britishAudio;
 
   const Word({
-    required this.id,
     required this.word,
     required this.americanTranscription,
     required this.britishTranscription,
     required this.translation,
-    required this.image,
-    required this.americanAudio,
-    required this.britishAudio,
+    this.image,
+    required this.audio,
+    // required this.britishAudio,
   });
 
   /*Word.fromJson(Map<String, dynamic> json)
@@ -56,35 +54,32 @@ class Word extends Equatable {
       };*/
 
   Word copyWith({
-    int? id,
     String? word,
     String? americanTranscription,
     String? britishTranscription,
     String? translation,
     String? image,
     String? americanAudio,
-    String? britishAudio,
+    // String? britishAudio,
   }) =>
       Word(
-        id: id ?? this.id,
         word: word ?? this.word,
         americanTranscription:
             americanTranscription ?? this.americanTranscription,
         britishTranscription: britishTranscription ?? this.britishTranscription,
         translation: translation ?? this.translation,
         image: image ?? this.image,
-        americanAudio: americanAudio ?? this.americanAudio,
-        britishAudio: britishAudio ?? this.britishAudio,
+        audio: americanAudio ?? this.audio,
+        // britishAudio: britishAudio ?? this.britishAudio,
       );
 
   @override
   List<Object?> get props => [
-        id,
         word,
         americanTranscription,
         britishTranscription,
         image,
-        americanAudio,
-        britishAudio,
+        audio,
+        // britishAudio,
       ];
 }

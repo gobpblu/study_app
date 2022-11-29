@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
-enum WordState {
+enum WordStateEnum {
   neutral,
   done,
   mistake;
 
   Color getAppropriateColor() {
     switch (this) {
-      case WordState.neutral:
+      case WordStateEnum.neutral:
         return Colors.grey;
-      case WordState.done:
+      case WordStateEnum.done:
         return Colors.green;
-      case WordState.mistake:
+      case WordStateEnum.mistake:
         return Colors.red;
     }
   }

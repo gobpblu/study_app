@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:study_app/core/res/app_colors.dart';
-import 'package:study_app/features/words/tree/words_trainings_2/tree/collect_listened_word/bloc/collect_listened_word_cubit.dart';
+import 'package:study_app/features/words/tree/words_trainings/tree/collect_listened_word/bloc/collect_listened_word_cubit.dart';
 
 class AudioVisualizer extends StatelessWidget {
   const AudioVisualizer({Key? key, required this.shouldAnimate})
@@ -64,10 +64,9 @@ class _VisualComponentState extends State<_VisualComponent>
       ..addListener(() => setState(() {}));
     // animController.repeat(reverse: true);
     // animController.repeat(period: Duration(seconds: 3));
-    print(
-        'shouldAnimate: ${context.read<CollectListenedWordCubit>().state.shouldAnimate}');
-    if (context.read<CollectListenedWordCubit>().state.shouldAnimate)
+    if (context.read<CollectListenedWordCubit>().state.shouldAnimate) {
       animController.repeat(reverse: true);
+    }
   }
 
   @override

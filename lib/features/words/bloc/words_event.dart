@@ -25,3 +25,5 @@ class LoadParticularWords extends WordsEvent {
   @override
   List<Object?> get props => [firstId, lastId];
 }
+
+class LoadAllWordsTopics extends WordsEvent {}

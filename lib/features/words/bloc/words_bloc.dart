@@ -5,7 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:get/get.dart';
 import 'package:study_app/features/words/repository/words_repository_impl.dart';
 
-import '../models/word_tile_item.dart';
+import '../models/word_topic_tile_item.dart';
 
 part 'words_event.dart';
 
@@ -18,6 +18,7 @@ class WordsBloc extends Bloc<WordsEvent, WordsState> {
     on<AddImage>(_onAddImage);
     on<LoadAllWords>(_onLoadAllWords);
     on<LoadParticularWords>(_onLoadParticularWords);
+    on<LoadAllWordsTopics>(_onLoadAllWordsTopics);
   }
 
   final WordsRepositoryImpl _repository = Get.put(WordsRepositoryImpl());
@@ -43,7 +44,13 @@ class WordsBloc extends Bloc<WordsEvent, WordsState> {
     Emitter<WordsState> emit,
   ) {
     emit(state.copyWith(isLoading: true));
-    final words = _repository.loadWords(event.firstId, event.lastId);
-    // emit(state.copyWith())
+  }
+
+  void _onLoadAllWordsTopics(
+      LoadAllWordsTopics event,
+      Emitter<WordsState> emit,
+      ) {
+    final wordsTiles = _repository.loadAllWordsTopics();
+    emit(state.copyWith(status: WordsStatus.success, items: wordsTiles));
   }
 }

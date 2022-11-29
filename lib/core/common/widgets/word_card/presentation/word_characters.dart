@@ -1,45 +1,48 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:study_app/features/words/tree/words_trainings_2/tree/collect_listened_word/bloc/collect_listened_word_cubit.dart';
 
 class WordCharacters extends StatelessWidget {
-  const WordCharacters({Key? key, required this.word}) : super(key: key);
+  const WordCharacters({
+    Key? key,
+    required this.word,
+    required this.characters,
+    required this.onTap,
+  }) : super(key: key);
 
   final List<String> word;
+  final List<String> characters;
+  final Function(String, int) onTap;
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CollectListenedWordCubit, CollectListenedWordState>(
-        builder: (context, state) {
-      return Wrap(
-        children: state.characters.entries
-            .map(
-              (e) => e.value > 0
-                  ? SizedBox(
-                      width: 80,
-                      height: 80,
-                      child: GestureDetector(
-                        onTap: () => context
-                            .read<CollectListenedWordCubit>()
-                            .checkCharacter(e.key),
-                        child: Card(
-                          margin: EdgeInsets.all(16),
-                          elevation: 10,
-                          child: Text(
-                            e.key,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 36),
-                          ),
-                        ),
-                      ),
-                    )
-                  : const SizedBox(
-                      width: 80,
-                      height: 80,
-                    ),
-            )
-            .toList(),
-      );
-    });
+    return Wrap(children: _generateCharacters(characters));
+  }
+
+  List<Widget> _generateCharacters(List<String> characters) {
+    List<Widget> charactersWidgets = [];
+    for (int i = 0; i < characters.length; i++) {
+      if (characters[i].isEmpty) {
+        charactersWidgets.add(const SizedBox(width: 80, height: 80));
+      } else {
+        charactersWidgets.add(SizedBox(
+          width: 80,
+          height: 80,
+          child: GestureDetector(
+            onTap: () {
+              onTap.call(characters[i], i);
+            },
+            child: Card(
+              margin: EdgeInsets.all(16),
+              elevation: 10,
+              child: Text(
+                characters[i],
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 36),
+              ),
+            ),
+          ),
+        ));
+      }
+    }
+    return charactersWidgets;
   }
 }

@@ -1,7 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
 import 'package:study_app/core/common/models/bloc_status_enum.dart';
+import 'package:study_app/features/realtime_database/service/realtime_database_service.dart';
 
 part 'auth_event.dart';
 
@@ -10,37 +12,40 @@ part 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc()
       : super(const AuthState(
-          status: BlocStatusEnum.initial,
-          username: '',
-          isUsernameChanged: false,
-        )) {
+    isLoading: false,
+    status: BlocStatusEnum.initial,
+    username: '',
+    isUsernameChanged: false,
+  )) {
     on<UsernameChanged>(_onUsernameChanged);
     on<SignInWithGoogle>(_onSignInWithGoogle);
     on<UpdateUsername>(_onUpdateUsername);
   }
 
-  void _onUsernameChanged(
-    UsernameChanged event,
-    Emitter<AuthState> emit,
-  ) {
+  final db = Get.put(RealtimeDatabaseService());
+
+  void _onUsernameChanged(UsernameChanged event,
+      Emitter<AuthState> emit,) {
     emit(state.copyWith(
         status: BlocStatusEnum.success, username: event.username));
   }
 
-  Future _onUpdateUsername(
-    UpdateUsername event,
-    Emitter<AuthState> emit,
-  ) async {
-    print('I work');
+  Future _onUpdateUsername(UpdateUsername event,
+      Emitter<AuthState> emit,) async {
+    emit(state.copyWith(isLoading: true));
     await event.user?.updateDisplayName(state.username);
-    emit(state.copyWith(
-        status: BlocStatusEnum.success, isUsernameChanged: true));
+    if (event.user != null) {
+      final isCommitted = await db.saveUsernameByUid(state.username, event.user!.uid);
+      if (isCommitted) {
+        emit(state.copyWith(
+            status: BlocStatusEnum.success, isUsernameChanged: true));
+      }
+    }
+
   }
 
-  Future _onSignInWithGoogle(
-    SignInWithGoogle event,
-    Emitter<AuthState> emit,
-  ) async {
+  Future _onSignInWithGoogle(SignInWithGoogle event,
+      Emitter<AuthState> emit,) async {
     await FirebaseAuth.instance.signInWithProvider(GoogleAuthProvider());
   }
 }

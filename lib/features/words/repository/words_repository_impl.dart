@@ -1,42 +1,23 @@
 import 'dart:convert';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:study_app/features/ratings/db/ratings_hive.dart';
 import 'package:study_app/features/realtime_database/service/realtime_database_service.dart';
+import 'package:study_app/features/user/repository/user_local_repository.dart';
+import 'package:study_app/features/user/repository/user_local_repository_impl.dart';
 import 'package:study_app/features/words/models/word.dart';
-import 'package:study_app/features/words/models/word_tile_item.dart';
+import 'package:study_app/features/words/models/word_topic_tile_item.dart';
 
 import '../models/raw_word.dart';
 
 class WordsRepositoryImpl {
-  Future<List<Word>> loadWords(int firstId, int lastId) async {
-    final List<Word> words = [];
-    final jsonWords =
-        await rootBundle.loadString('assets/words/words_$firstId-$lastId.json');
-    final rawWords = (json.decode(jsonWords) as List<dynamic>)
-        .map((e) => RawWord.fromJson(e))
-        .toList();
-    for (var item in rawWords) {
-      final word = Word(
-        id: item.id,
-        word: item.word,
-        americanTranscription: item.americanTranscription,
-        britishTranscription: item.britishTranscription,
-        translation: item.translation,
-        image: 'assets/words/images/word_${item.id}.jpg',
-        americanAudio: 'words/audio/word_${item.id}_american.mp3',
-        britishAudio: 'words/audio/word_${item.id}_british.mp3',
-      );
-      words.add(word);
-    }
-    return words;
-  }
-
-  List<WordTileItem> loadAllWordTiles() {
+  List<WordTopicTileItem> loadAllWordTiles() {
     final db = Get.put(RealtimeDatabaseService());
     final words = db.loadWords(1, 20);
-    return <WordTileItem>[
-      const WordTileItem(firstId: 1, lastId: 20, title: 'Lesson 1'),
+    return <WordTopicTileItem>[
+      // const WordTileItem(firstId: 1, lastId: 20, title: 'Lesson 1'),
     ];
   }
 
@@ -70,5 +51,58 @@ class WordsRepositoryImpl {
     // final id = WordsDatabase.instance;
     // .update(word.copyWith(image: imageData.buffer.asUint8List()));
     // print('Item with ID $id was updated successfully');
+  }
+
+  List<WordTopicTileItem> loadAllWordsTopics() {
+    return const [
+      WordTopicTileItem(
+          title: 'Семья',
+          topic: 'family',
+          jsonPath: 'assets/words/topics/words_family.json',
+          audiosPath: 'assets/words/audio/family/',
+          picturesPath: 'assets/words/images/family/',
+          iconPath: 'assets/icons/ic_family.svg'),
+      WordTopicTileItem(
+          title: 'Рождение, свадьба, смерть',
+          topic: 'birth_marriage_death',
+          jsonPath: 'assets/words/topics/words_birth_marriage_death.json',
+          audiosPath: 'assets/words/audio/birth_marriage_death/',
+          picturesPath: 'assets/words/images/birth_marriage_death/',
+          iconPath: 'assets/icons/birth_marriage_death.jpg'),
+    ];
+  }
+
+  Future<List<Word>> getLocalWords({required String topic}) async {
+    final List<Word> words = [];
+    final jsonWords =
+        await rootBundle.loadString('assets/words/topics/words_$topic.json');
+    final rawWords = (json.decode(jsonWords) as List<dynamic>)
+        .map((e) => RawWord.fromJson(e))
+        .toList();
+    for (var item in rawWords) {
+      final word = Word(
+        word: item.word,
+        americanTranscription: item.americanTranscription,
+        britishTranscription: item.britishTranscription,
+        translation: item.translation,
+        // image: 'assets/words/images/$topic/${item.word}.jpg',
+        audio: 'words/audio/$topic/${item.word}.mp3',
+      );
+      words.add(word);
+    }
+    return words;
+  }
+
+  Future<int> loadTopicRating(String topic) async {
+    RatingsHive hive = Get.put(RatingsHive());
+    var connectivity = await (Connectivity().checkConnectivity());
+    if (connectivity == ConnectivityResult.mobile || connectivity == ConnectivityResult.wifi) {
+    final RealtimeDatabaseService db = Get.put(RealtimeDatabaseService());
+    final topicRating = await db.getTopicRating(topic);
+      hive.saveUserRatingByTopic(topic, topicRating);
+      return topicRating;
+    } else {
+      return await hive.getUserRatingByTopic(topic);
+    }
   }
 }

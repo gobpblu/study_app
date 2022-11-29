@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:study_app/core/res/app_colors.dart';
 
-class WordsCategoryTile extends StatelessWidget {
-  const WordsCategoryTile({Key? key, required this.onTap}) : super(key: key);
+class WordTopicTile extends StatelessWidget {
+  const WordTopicTile({
+    Key? key,
+    required this.onTap,
+    required this.iconAsset,
+    required this.title,
+  }) : super(key: key);
 
   final VoidCallback onTap;
+  final String iconAsset;
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -25,27 +33,35 @@ class WordsCategoryTile extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(left: 12),
-                  child: Image.asset(
-                    'assets/images/words_categories_numbers.png',
+
+                  child: SvgPicture.asset(
+                    iconAsset,
                     width: 64,
                     height: 64,
                   ),
                 ),
-                Padding(padding: const EdgeInsets.only(left: 8),
+                Padding(
+                  padding: const EdgeInsets.only(left: 16),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('Цифры 1-20', style: TextStyle(fontSize: 16),),
-                      SizedBox(height: 8),
+                      Text(
+                        title,
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      /*SizedBox(height: 8),
                       Row(
                         children: [
                           Icon(Icons.stacked_bar_chart),
-                          SizedBox(width: 4,),
+                          SizedBox(
+                            width: 4,
+                          ),
                           Text('0/400'),
                         ],
-                      ),
+                      ),*/
                     ],
-                  ),)
+                  ),
+                )
               ],
             ),
           ),
@@ -53,27 +69,28 @@ class WordsCategoryTile extends StatelessWidget {
             alignment: Alignment.centerRight,
             child: Container(
               decoration: BoxDecoration(
-                  color: onPrimaryColor, borderRadius: BorderRadius.circular(25)),
+                  color: onPrimaryColor,
+                  borderRadius: BorderRadius.circular(25)),
               padding: EdgeInsets.all(8),
               margin: EdgeInsets.only(right: 24, top: 12),
               child: CircularProgressIndicator(
-                value: 0.25,
+                value: 1,
                 valueColor: AlwaysStoppedAnimation<Color>(secondaryTextColor),
                 backgroundColor: primaryColor,
               ),
             ),
           ),
-          Container(
+          /*Container(
             alignment: Alignment.centerRight,
             margin: EdgeInsets.only(right: 40, top: 28),
             child: Text(
-              '1/4',
+              // '1/4',
               style: const TextStyle(
                 color: secondaryTextColor,
                 fontWeight: FontWeight.bold,
               ),
             ),
-          )
+          )*/
         ],
       ),
     );

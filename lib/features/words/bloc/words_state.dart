@@ -6,7 +6,7 @@ class WordsState extends Equatable {
   final WordsStatus status;
   final bool isLoading;
   final Uint8List? image;
-  final List<WordTileItem> items;
+  final List<WordTopicTileItem> items;
 
   const WordsState({required this.status, required this.isLoading, this.image, required this.items});
 
@@ -14,7 +14,7 @@ class WordsState extends Equatable {
     WordsStatus? status,
     bool? isLoading,
     Uint8List? image,
-    List<WordTileItem>? items,
+    List<WordTopicTileItem>? items,
   }) =>
       WordsState(
         status: status ?? this.status,

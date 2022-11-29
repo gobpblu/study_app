@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:study_app/features/dialogs/presentation/dialogs_page.dart';
 import 'package:study_app/features/texts/presentation/texts_page.dart';
-import 'package:study_app/features/words/presentation/words_page.dart';
 
-import '../../words/presentation/words_page_2.dart';
+import '../../words/bloc/words_bloc.dart';
+import '../../words/presentation/words_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -16,10 +17,16 @@ class _HomePageState extends State<HomePage> {
   int bottomNavIndex = 0;
 
   List pages = [
-    WordsPage(),
-    WordsPage2(),
-    TextsPage(),
-    DialogsPage(),
+    BlocProvider(
+      create: (context) => WordsBloc()..add(LoadAllWordsTopics()),
+      child: const WordsPage(),
+    ),
+    BlocProvider(
+      create: (context) => WordsBloc()..add(LoadAllWordsTopics()),
+      child: const WordsPage(),
+    ),
+    const TextsPage(),
+    const DialogsPage(),
   ];
 
   @override
@@ -29,7 +36,8 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.wordpress), label: 'WORDS'),
-          BottomNavigationBarItem(icon: Icon(Icons.wordpress), label: 'WORDS 2.0'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.wordpress), label: 'WORDS 2.0'),
           BottomNavigationBarItem(
               icon: Icon(Icons.back_hand_outlined), label: 'TEXTS'),
           BottomNavigationBarItem(

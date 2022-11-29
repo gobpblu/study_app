@@ -18,7 +18,9 @@ class AuthService {
     return StreamBuilder(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (buildContext, snapshot) {
+          print('inside builder');
           if (snapshot.hasData) {
+            print('I work');
             if (snapshot.data != null ) {
               userRepository.saveUser(snapshot.data!);
             }

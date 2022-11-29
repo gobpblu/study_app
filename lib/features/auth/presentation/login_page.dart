@@ -9,9 +9,12 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('auth_log_in'.tr)),
-      body: const _LoginBody(),
+    return BlocProvider(
+      create: (context) => AuthBloc(),
+      child: Scaffold(
+        appBar: AppBar(title: Text('auth_log_in'.tr)),
+        body: const _LoginBody(),
+      ),
     );
   }
 }
@@ -21,16 +24,23 @@ class _LoginBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text('auth_log_in_to_save'.tr),
-        FloatingActionButton(
-            backgroundColor: Colors.white38,
-            foregroundColor: Colors.black87,
-            onPressed: () {
-              context.read<AuthBloc>().add(SignInWithGoogle());
-            }),
-      ],
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text('auth_log_in_to_save'.tr, textAlign: TextAlign.center,),
+          SizedBox(height: 24,),
+          Container(
+            width: 128,
+            child: ElevatedButton(
+                child: Text('Войти'),
+                onPressed: () {
+                  context.read<AuthBloc>().add(SignInWithGoogle());
+                }),
+          ),
+        ],
+      ),
     );
   }
 }

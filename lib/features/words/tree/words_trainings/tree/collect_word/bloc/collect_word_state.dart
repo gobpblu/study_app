@@ -1,68 +1,81 @@
 part of 'collect_word_cubit.dart';
 
-enum CollectWordStatus { success, failure, submit }
-
 class CollectWordState extends Equatable {
-  final CollectWordStatus status;
-  final int id;
-  final int firstId;
-  final int lastId;
-  final List<WordState> wordStates;
+  final WordStatus status;
+  final bool isLoading;
+  final int index;
   final List<Word> words;
-  final AudioPlayer player;
+  final List<String> characters;
+  final List<String> formedWord;
   final int points;
-  final String formedWord;
-  final int seriesOfRightAnswers;
+  final Word currentWord;
+  final bool shouldAnimate;
+  final int guessedChars;
+  final List<WordWithPoints> wordsWithPoints;
+  final int currentWordPoints;
+  final int currentWordMistakes;
 
   const CollectWordState({
     required this.status,
-    required this.id,
-    required this.firstId,
-    required this.lastId,
-    required this.wordStates,
+    required this.isLoading,
+    required this.index,
     required this.words,
-    required this.player,
+    required this.characters,
     required this.points,
     required this.formedWord,
-    required this.seriesOfRightAnswers,
+    required this.currentWord,
+    required this.shouldAnimate,
+    required this.guessedChars,
+    required this.wordsWithPoints,
+    required this.currentWordPoints,
+    required this.currentWordMistakes,
   });
 
   CollectWordState copyWith({
-    CollectWordStatus? status,
-    int? id,
-    int? firstId,
-    int? lastId,
-    List<WordState>? wordStates,
+    WordStatus? status,
+    bool? isLoading,
+    int? index,
     List<Word>? words,
-    AudioPlayer? player,
+    List<String>? characters,
     int? points,
-    String? formedWord,
-    int? seriesOfRightAnswers,
+    List<String>? formedWord,
+    Word? currentWord,
+    bool? shouldAnimate,
+    int? guessedChars,
+    List<WordWithPoints>? wordsWithPoints,
+    int? currentWordPoints,
+    int? currentWordMistakes,
   }) =>
       CollectWordState(
         status: status ?? this.status,
-        id: id ?? this.id,
-        firstId: firstId ?? this.firstId,
-        lastId: lastId ?? this.lastId,
-        wordStates: wordStates ?? this.wordStates,
+        isLoading: isLoading ?? this.isLoading,
+        index: index ?? this.index,
         words: words ?? this.words,
-        player: player ?? this.player,
+        characters: characters ?? this.characters,
         points: points ?? this.points,
         formedWord: formedWord ?? this.formedWord,
-        seriesOfRightAnswers: seriesOfRightAnswers ?? this.seriesOfRightAnswers,
+        currentWord: currentWord ?? this.currentWord,
+        shouldAnimate: shouldAnimate ?? this.shouldAnimate,
+        guessedChars: guessedChars ?? this.guessedChars,
+        wordsWithPoints: wordsWithPoints ?? this.wordsWithPoints,
+        currentWordPoints: currentWordPoints ?? this.currentWordPoints,
+        currentWordMistakes: currentWordMistakes ?? this.currentWordMistakes,
       );
 
   @override
   List<Object?> get props => [
-        status,
-        id,
-        firstId,
-        lastId,
-        wordStates,
-        words,
-        player,
-        points,
-        formedWord,
-        seriesOfRightAnswers,
-      ];
+    status,
+    isLoading,
+    index,
+    words,
+    characters,
+    points,
+    formedWord,
+    currentWord,
+    shouldAnimate,
+    guessedChars,
+    wordsWithPoints,
+    currentWordPoints,
+    currentWordMistakes,
+  ];
 }

@@ -4,13 +4,14 @@ import 'package:get/get.dart';
 import 'package:study_app/core/res/db_paths.dart';
 import 'package:study_app/features/user/repository/user_local_repository.dart';
 
+import '../../ratings/models/user_rating.dart';
 import '../../user/repository/user_local_repository_impl.dart';
 import '../../words/models/word.dart';
 import '../../words/models/word_with_points.dart';
 
 class RealtimeDatabaseService {
   FirebaseDatabase db = FirebaseDatabase.instance;
-  UserLocalRepository repository = Get.put(UserLocalRepositoryImpl());
+  UserLocalRepository userRepository = Get.put(UserLocalRepositoryImpl());
 
   Future<List<Word>> loadWords(int startId, int endId) async {
     final ref = db.ref('words/1-20/words');
@@ -31,7 +32,8 @@ class RealtimeDatabaseService {
 
   Future<bool> uploadRatingsFromLocal(
       {required Map<dynamic, dynamic> map}) async {
-    final uid = repository.getUser().uid;
+    final uid = userRepository.getUser().uid;
+
     /*{1-20: {14: {points: 4, correct_answers: 1, wrong_answers: 0},
     4: {points: 6, correct_answers: 2, wrong_answers: 0},
     13: {points: 8, correct_answers: 2, wrong_answers: 0},
@@ -49,7 +51,7 @@ class RealtimeDatabaseService {
     19: {points: 4, correct_answers: 1, wrong_answers: 0},
     15: {points: 4, correct_answers: 1, wrong_answers: 0}}, overall_rating: 79}*/
 
-    DatabaseReference ref = db.ref("words/ratings/$uid");
+    DatabaseReference ref = db.ref("words/ratings/topics/$uid");
     TransactionResult result = await ref.runTransaction((Object? ratingObject) {
       Map<dynamic, dynamic> updateMap = {};
       if (ratingObject == null) {
@@ -110,7 +112,7 @@ class RealtimeDatabaseService {
         int rightAnswers = 0;
         int wrongAnswers = 0;
         for (var word in words) {
-          userRating['${word.id}'] = {'points': word.points};
+          userRating[word.word] = {'points': word.points};
           word.isRight ? rightAnswers++ : wrongAnswers++;
         }
         userRating['right_answers'] = rightAnswers;
@@ -124,17 +126,17 @@ class RealtimeDatabaseService {
         int rightAnswers = 0;
         int wrongAnswers = 0;
         for (var word in words) {
-          if (userRating['${word.id}'] != null) {
-            userRating['${word.id}']['points'] =
-                (userRating['${word.id}']['points'] ?? 0) + word.points;
-            userRating['${word.id}']['correct_answers'] =
-                (userRating['${word.id}']?['correct_answers'] ?? 0) +
+          if (userRating[word.word] != null) {
+            userRating[word.word]['points'] =
+                (userRating[word.word]['points'] ?? 0) + word.points;
+            userRating[word.word]['correct_answers'] =
+                (userRating[word.word]?['correct_answers'] ?? 0) +
                     (word.isRight ? 1 : 0);
-            userRating['${word.id}']['wrong_answers'] =
-                (userRating['${word.id}']?['wrong_answers'] ?? 0) +
+            userRating[word.word]['wrong_answers'] =
+                (userRating[word.word]?['wrong_answers'] ?? 0) +
                     (word.isRight ? 0 : 1);
           } else {
-            userRating['${word.id}'] = {
+            userRating[word.word] = {
               'points': word.points,
               'correct_answers': word.isRight ? 1 : 0,
               'wrong_answers': word.isRight ? 0 : 1,
@@ -199,5 +201,52 @@ class RealtimeDatabaseService {
       }
       return Transaction.success(userAchievements);
     });
+  }
+
+  Future<bool> saveUsernameByUid(String username, String uid) async {
+    final userUrl = 'users/$uid';
+    final userRef = db.ref(userUrl);
+    TransactionResult result =
+        await userRef.runTransaction((Object? currentUser) {
+      Map<String, dynamic> userMap;
+      if (currentUser == null) {
+        userMap = {'username': username};
+      } else {
+        userMap = Map<String, dynamic>.from(currentUser as Map);
+        userMap['username'] = userMap['username'] ?? username;
+      }
+      return Transaction.success(userMap);
+    });
+    debugPrint('User with id $uid is committed: ${result.committed}\n'
+        '\nSnapshot value is:${result.snapshot.value}');
+    return result.committed;
+  }
+
+  Future<List<UserRating>> loadAllTrainingsRatings(String topic) async {
+    const topicsUrl = 'words/ratings/topics';
+    final topicsRef = db.ref(topicsUrl);
+    final snapshot = await topicsRef.get();
+    final userRatings = <UserRating>[];
+    for (var user in snapshot.children) {
+      final username = await getUsername(user.key as String);
+      final points = (user.value as Map)[topic]?['common_rating'] ?? 0;
+      userRatings.add(UserRating(username: username, points: points));
+    }
+    return userRatings;
+  }
+
+  Future<String> getUsername(String uid) async {
+    final userUrl = 'users/$uid';
+    final userRef = db.ref(userUrl);
+    final snapshot = await userRef.get();
+    return (snapshot.value as Map)['username'];
+  }
+
+  Future<int> getTopicRating(String topic) async {
+    final uid = userRepository.getUser().uid;
+    final ratingUrl = 'words/ratings/topics/$uid/$topic/';
+    final ratingRef = db.ref(ratingUrl);
+    final snapshot = await ratingRef.get();
+    return (snapshot.value as Map)['common_rating'] ?? 0;
   }
 }

@@ -1,0 +1,1 @@
+enum WordStatus { initial, process, success, lastSuccess }

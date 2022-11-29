@@ -4,8 +4,7 @@ import '../../words/models/word_with_points.dart';
 
 class RatingsHive {
   Future writeRatings({
-    required int startIndex,
-    required int endIndex,
+    required String topic,
     required String uid,
     required int points,
     required List<WordWithPoints> words,
@@ -14,20 +13,18 @@ class RatingsHive {
     await Hive.openBox('wordsRatings');
     var box = Hive.box('wordsRatings');
     final wordsMap = box.toMap();
-    print('box: ${box.toMap()}');
-    if (wordsMap['$startIndex-$endIndex'] == null) {
+    if (wordsMap[topic] == null) {
       wordsMap['overall_rating'] = (wordsMap['overall_rating'] ?? 0) + points;
-      wordsMap['$startIndex-$endIndex'] =
-          _generateTopicWordsMap(words, training, points);
+      wordsMap[topic] = _generateTopicWordsMap(words, training, points);
     } else {
       final topicWords = _updateTopicWords(
-        wordsMap['$startIndex-$endIndex'],
+        wordsMap[topic],
         words,
         training,
         points,
       );
       wordsMap['overall_rating'] = (wordsMap['overall_rating'] ?? 0) + points;
-      wordsMap['$startIndex-$endIndex'] = topicWords;
+      wordsMap[topic] = topicWords;
     }
     box.putAll(wordsMap);
   }
@@ -44,7 +41,7 @@ class RatingsHive {
     int wrongAnswers = 0;
     for (var word in words) {
       word.isRight ? correctAnswers++ : wrongAnswers++;
-      topicWordsMap['${word.id}'] = {
+      topicWordsMap[word.word] = {
         'points': word.points,
         'correct_answers': word.isRight ? 1 : 0,
         'wrong_answers': word.isRight ? 0 : 1,
@@ -67,12 +64,12 @@ class RatingsHive {
     int wrongAnswers = 0;
     for (var word in words) {
       word.isRight ? correctAnswers++ : wrongAnswers++;
-      map['${word.id}'] = {
-        'points': (map['${word.id}']?['points'] ?? 0) + word.points,
-        'correct_answers': (map['${word.id}']?['correct_answers'] ?? 0) +
+      map[word.word] = {
+        'points': (map[word.word]?['points'] ?? 0) + word.points,
+        'correct_answers': (map[word.word]?['correct_answers'] ?? 0) +
             (word.isRight ? 1 : 0),
         'wrong_answers':
-            (map['${word.id}']?['wrong_answers'] ?? 0) + (word.isRight ? 0 : 1),
+            (map[word.word]?['wrong_answers'] ?? 0) + (word.isRight ? 0 : 1),
       };
     }
     map[training] = (map[training] ?? 0) + points;
@@ -86,5 +83,18 @@ class RatingsHive {
     final box = await Hive.openBox('wordsRatings');
     final count = box.clear();
     return count;
+  }
+
+  Future saveUserRatingByTopic(String topic, int rating) async {
+    final box = await Hive.openBox('userRating');
+    final map = box.toMap();
+    map[topic]['rating'] = (map[topic]?['rating'] ?? 0) + rating;
+    box.putAll(map);
+  }
+
+  Future getUserRatingByTopic(String topic) async {
+    final box = await Hive.openBox('userRating');
+    final map = box.toMap();
+    return map[topic]?['rating'] ?? 0;
   }
 }

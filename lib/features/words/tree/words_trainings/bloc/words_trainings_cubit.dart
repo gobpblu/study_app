@@ -8,21 +8,34 @@ import '../../../models/word.dart';
 part 'words_trainings_state.dart';
 
 class WordsTrainingsCubit extends Cubit<WordsTrainingsState> {
-  WordsTrainingsCubit(int firstId, int lastId)
-      : super(WordsTrainingsState(
-          words: const [],
+  WordsTrainingsCubit({
+    required String topic,
+    required String jsonAsset,
+    required String audioAssetPath,
+    required String picturesAssetPath,
+  }) : super(WordsTrainingsState(
           isLoading: true,
-          firstId: firstId,
-          lastId: lastId,
+          words: const [],
+          jsonAsset: jsonAsset,
+          audioAssetPath: audioAssetPath,
+          picturesAssetPath: picturesAssetPath,
+          topic: topic,
+          rating: 0,
         )) {
     loadWords();
+    loadRating();
   }
 
   final WordsRepositoryImpl _repository = Get.put(WordsRepositoryImpl());
 
   Future loadWords() async {
-    print('I work');
-    final words = await _repository.loadWords(state.firstId, state.lastId);
-    emit(state.copyWith(words: words, isLoading: false));
+    final words = await _repository.getLocalWords(topic: state.topic);
+    emit(state.copyWith(words: words));
+  }
+
+  Future loadRating() async {
+    emit(state.copyWith(isLoading: true));
+    final rating = await _repository.loadTopicRating(state.topic);
+    emit(state.copyWith(isLoading: false, rating: rating));
   }
 }

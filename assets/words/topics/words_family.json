@@ -1,0 +1,152 @@
+[
+  {
+    "word": "aunt",
+    "translation": "тетя",
+    "american_transcription": "[ænt]",
+    "british_transcription": "[ɑːnt]"
+  },
+  {
+    "word": "brother",
+    "translation": "брат",
+    "american_transcription": "[ˈbrʌðər]",
+    "british_transcription": "[ˈbrʌðə]"
+  },
+  {
+    "word": "child",
+    "translation": "ребенок",
+    "american_transcription": "[tʃaɪld]",
+    "british_transcription": "[tʃaɪld]"
+  },
+  {
+    "word": "children",
+    "translation": "дети",
+    "american_transcription": "[ˈtʃɪldrən]",
+    "british_transcription": "[ˈtʃɪldrən]"
+  },
+  {
+    "word": "cousin",
+    "translation": "двоюродный брат или сестра",
+    "american_transcription": "[ˈkʌzn]",
+    "british_transcription": "[ˈkʌz(ə)n]"
+  },
+  {
+    "word": "daughter",
+    "translation": "дочь",
+    "american_transcription": "[ˈdɔːtər]",
+    "british_transcription": "[ˈdɔːtə]"
+  },
+  {
+    "word": "family",
+    "translation": "семья",
+    "american_transcription": "[ˈfæməlɪ]",
+    "british_transcription": "[ˈfæməlɪ]"
+  },
+  {
+    "word": "grandchild",
+    "translation": "внук, внучка",
+    "american_transcription": "[ˈɡræntʃaɪld]",
+    "british_transcription": "[ˈɡræn(d)tʃæɪld]"
+  },
+  {
+    "word": "grandchildren",
+    "translation": "внуки",
+    "american_transcription": "[ˈɡrænˌtʃɪldrən]",
+    "british_transcription": "[ˈɡræntʃɪldrən]"
+  },
+  {
+    "word": "granddaughter",
+    "translation": "внучка",
+    "american_transcription": "[ˈɡrændɔːtər]",
+    "british_transcription": "[ˈɡrændɔːtə]"
+  },
+  {
+    "word": "grandfather",
+    "translation": "дедушка",
+    "american_transcription": "[ɡrænfɑːðər]",
+    "british_transcription": "[ˈɡræn(d)fɑːðə]"
+  },
+  {
+    "word": "grandmother",
+    "translation": "бабушка",
+    "american_transcription": "[ˈɡrænmʌðər]",
+    "british_transcription": "[ˈɡræn(d)mʌðə]"
+  },
+  {
+    "word": "grandparents",
+    "translation": "бабушка и дедушка",
+    "american_transcription": "[ˈɡrændˌperənts]",
+    "british_transcription": "[ˈɡrænpeərənts]"
+  },
+  {
+    "word": "grandson",
+    "translation": "внук",
+    "american_transcription": "[ˈɡrænsʌn]",
+    "british_transcription": "[ˈɡræn(d)sʌn]"
+  },
+  {
+    "word": "husband",
+    "translation": "муж",
+    "american_transcription": "[ˈhʌzbənd]",
+    "british_transcription": "[ˈhʌzbənd]"
+  },
+  {
+    "word": "mother",
+    "translation": "мать",
+    "american_transcription": "[ˈmʌðər]",
+    "british_transcription": "[ˈmʌðə]"
+  },
+  {
+    "word": "nephew",
+    "translation": "племянник",
+    "american_transcription": "[ˈnefjuː]",
+    "british_transcription": "[ˈnefjuː]"
+  },
+  {
+    "word": "niece",
+    "translation": "племянница",
+    "american_transcription": "[niːs]",
+    "british_transcription": "[niːs]"
+  },
+  {
+    "word": "parents",
+    "translation": "родители",
+    "american_transcription": "[ˈperənts]",
+    "british_transcription": "[ˈpeərənts]"
+  },
+  {
+    "word": "relations",
+    "translation": "связи, отношения",
+    "american_transcription": "[rɪˈleɪʃənz]",
+    "british_transcription": "[rɪˈleɪʃənz]"
+  },
+  {
+    "word": "relatives",
+    "translation": "родственники",
+    "american_transcription": "[ˈrelətɪvz]",
+    "british_transcription": "[ˈrelətɪvz]"
+  },
+  {
+    "word": "sister",
+    "translation": "сестра",
+    "american_transcription": "[ˈsɪstər]",
+    "british_transcription": "[ˈsɪstə]"
+  },
+  {
+    "word": "son",
+    "translation": "сын",
+    "american_transcription": "[sʌn]",
+    "british_transcription": "[sʌn]"
+  },
+  {
+    "word": "uncle",
+    "translation": "дядя",
+    "american_transcription": "[ˈʌŋkl]",
+    "british_transcription": "[ˈʌŋk(ə)l]"
+  },
+  {
+    "word": "wife",
+    "translation": "жена",
+    "american_transcription": "[waɪf]",
+    "british_transcription": "[waɪf]"
+  }
+]

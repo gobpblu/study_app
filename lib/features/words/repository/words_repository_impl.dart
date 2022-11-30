@@ -61,7 +61,7 @@ class WordsRepositoryImpl {
           jsonPath: 'assets/words/topics/words_family.json',
           audiosPath: 'assets/words/audio/family/',
           picturesPath: 'assets/words/images/family/',
-          iconPath: 'assets/icons/ic_family.svg'),
+          iconPath: 'assets/icons/family.jpeg'),
       WordTopicTileItem(
           title: 'Рождение, свадьба, смерть',
           topic: 'birth_marriage_death',
@@ -76,21 +76,30 @@ class WordsRepositoryImpl {
     final List<Word> words = [];
     final jsonWords =
         await rootBundle.loadString('assets/words/topics/words_$topic.json');
+    print('$jsonWords');
     final rawWords = (json.decode(jsonWords) as List<dynamic>)
         .map((e) => RawWord.fromJson(e))
         .toList();
     for (var item in rawWords) {
       final word = Word(
         word: item.word,
-        americanTranscription: item.americanTranscription,
-        britishTranscription: item.britishTranscription,
+        transcription: item.transcription,
         translation: item.translation,
         // image: 'assets/words/images/$topic/${item.word}.jpg',
-        audio: 'words/audio/$topic/${item.word}.mp3',
+        audio: _getAudio(item.word, topic),
       );
       words.add(word);
     }
     return words;
+  }
+
+  String _getAudio(String word, String topic) {
+    if (word.contains(' ')) {
+      final newWord = word.replaceAll(' ', '_');
+      return 'words/audio/$topic/$newWord.mp3';
+    } else {
+      return 'words/audio/$topic/$word.mp3';
+    }
   }
 
   Future<int> loadTopicRating(String topic) async {

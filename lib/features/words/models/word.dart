@@ -20,17 +20,16 @@ class WordField {
 
 class Word extends Equatable {
   final String word;
-  final String americanTranscription;
-  final String britishTranscription;
+  final String transcription;
   final String translation;
   final String? image;
   final String audio;
+
   // final String britishAudio;
 
   const Word({
     required this.word,
-    required this.americanTranscription,
-    required this.britishTranscription,
+    required this.transcription,
     required this.translation,
     this.image,
     required this.audio,
@@ -55,29 +54,25 @@ class Word extends Equatable {
 
   Word copyWith({
     String? word,
-    String? americanTranscription,
-    String? britishTranscription,
+    String? transcription,
     String? translation,
     String? image,
-    String? americanAudio,
+    String? audio,
     // String? britishAudio,
   }) =>
       Word(
         word: word ?? this.word,
-        americanTranscription:
-            americanTranscription ?? this.americanTranscription,
-        britishTranscription: britishTranscription ?? this.britishTranscription,
+        transcription: transcription ?? this.transcription,
         translation: translation ?? this.translation,
         image: image ?? this.image,
-        audio: americanAudio ?? this.audio,
+        audio: audio ?? this.audio,
         // britishAudio: britishAudio ?? this.britishAudio,
       );
 
   @override
   List<Object?> get props => [
         word,
-        americanTranscription,
-        britishTranscription,
+        transcription,
         image,
         audio,
         // britishAudio,

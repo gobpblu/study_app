@@ -30,26 +30,9 @@ class RealtimeDatabaseService {
     return [];
   }
 
-  Future<bool> uploadRatingsFromLocal(
+  Future<bool> uploadRatingsFromLocal2(
       {required Map<dynamic, dynamic> map}) async {
     final uid = userRepository.getUser().uid;
-
-    /*{1-20: {14: {points: 4, correct_answers: 1, wrong_answers: 0},
-    4: {points: 6, correct_answers: 2, wrong_answers: 0},
-    13: {points: 8, correct_answers: 2, wrong_answers: 0},
-    11: {points: 4, correct_answers: 1, wrong_answers: 1},
-    5: {points: 3, correct_answers: 1, wrong_answers: 0},
-    17: {points: 9, correct_answers: 2, wrong_answers: 0},
-    9: {points: 3, correct_answers: 1, wrong_answers: 0},
-    7: {points: 3, correct_answers: 1, wrong_answers: 0},
-    12: {points: 10, correct_answers: 2, wrong_answers: 0},
-    2: {points: 6, correct_answers: 2, wrong_answers: 0},
-    collect_listened_word: 79, common_rating: 79,
-    correct_answers: 19, wrong_answers: 1,
-    20: {points: 6, correct_answers: 1, wrong_answers: 0},
-    1: {points: 9, correct_answers: 1, wrong_answers: 0},
-    19: {points: 4, correct_answers: 1, wrong_answers: 0},
-    15: {points: 4, correct_answers: 1, wrong_answers: 0}}, overall_rating: 79}*/
 
     DatabaseReference ref = db.ref("words/ratings/topics/$uid");
     TransactionResult result = await ref.runTransaction((Object? ratingObject) {
@@ -57,30 +40,66 @@ class RealtimeDatabaseService {
       if (ratingObject == null) {
         updateMap = map;
       } else {
-        updateMap = Map<String, dynamic>.from(ratingObject as Map);
+        print(ratingObject);
+      }
+
+      return Transaction.success(updateMap);
+    });
+    return result.committed;
+  }
+
+  Future<bool> uploadRatingsFromLocal(
+      {required Map<dynamic, dynamic> map}) async {
+    final uid = userRepository.getUser().uid;
+
+    DatabaseReference ref = db.ref("words/ratings/topics/$uid");
+    TransactionResult result = await ref.runTransaction((Object? ratingObject) {
+      Map<dynamic, dynamic> updateMap = {};
+      print('THE METHOD IS WORKING');
+      if (ratingObject == null) {
+        updateMap = map;
+      } else {
+        print('I don\'t work');
+        updateMap = Map<dynamic, dynamic>.from(ratingObject as Map);
+        print(updateMap);
         for (var entry in map.entries) {
           if (entry.key == 'overall_rating') {
-            updateMap[entry.key] = (updateMap[entry.key] ?? 0) + entry.value;
+            updateMap.update(entry.key, (value) => value + entry.value,
+                ifAbsent: () => entry.value);
+          } else if (updateMap[entry.key] == null) {
+            print('I work == null: ${updateMap.entries}');
+            updateMap.putIfAbsent(entry.key, () => entry.value);
           } else {
             final topicWords = entry.value as Map<dynamic, dynamic>;
             for (var topicEntry in topicWords.entries) {
-              if (topicEntry.value is int) {
-                updateMap[entry.key]?[topicEntry.key] =
-                    (updateMap[entry.key]?[topicEntry.key] ?? 0) +
-                        topicEntry.value;
-              } else {
-                final words = topicEntry.value as Map<dynamic, dynamic>;
+              if (updateMap[entry.key][topicEntry.key] == null) {
+                print('I work: updateMapEntryKey:${updateMap[entry.key]}'
+                    '\nupdateMapEntryKeyTopicEntryKey:${updateMap[entry.key][topicEntry.key]}');
+                (updateMap[entry.key] as Map)
+                    .putIfAbsent(topicEntry.key, () => topicEntry.value);
+              } else if (topicEntry.value is int) {
+                print('I work is int');
+                (updateMap[entry.key] as Map).update(
+                  topicEntry.key,
+                  (value) => value + topicEntry.value,
+                  ifAbsent: () => topicEntry.value,
+                );
+              } else if (topicEntry.value is Map) {
+                print('I work is map: ${topicEntry.value}');
+                final words = topicEntry.value as Map<String, int>;
                 for (var word in words.entries) {
-                  updateMap[entry.key]?[topicEntry.key]?[word.key] =
-                      (updateMap[entry.key]?[topicEntry.key]?[word.key] ?? 0) +
-                          word.value;
+                  print('word: $word');
+                  (updateMap[entry.key][topicEntry.key] as Map).update(
+                      word.key, (value) => value + word.value,
+                      ifAbsent: () => word.value);
                 }
               }
             }
           }
         }
       }
-      print('updateMap: $updateMap');
+      print('updateMap Here: $updateMap');
+
       return Transaction.success(updateMap);
     });
 
@@ -247,6 +266,6 @@ class RealtimeDatabaseService {
     final ratingUrl = 'words/ratings/topics/$uid/$topic/';
     final ratingRef = db.ref(ratingUrl);
     final snapshot = await ratingRef.get();
-    return (snapshot.value as Map)['common_rating'] ?? 0;
+    return snapshot.value is Map ? (snapshot.value as Map)['common_rating'] : 0;
   }
 }

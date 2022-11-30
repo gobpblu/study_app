@@ -60,6 +60,7 @@ flutter:
     - assets/words/images/
     - assets/words/images/family/
     - assets/words/audio/family/
+    - assets/words/audio/birth_marriage_death/
 
 flutter_intl:
   enabled: true

@@ -88,7 +88,7 @@ class RatingsHive {
   Future saveUserRatingByTopic(String topic, int rating) async {
     final box = await Hive.openBox('userRating');
     final map = box.toMap();
-    map[topic]['rating'] = (map[topic]?['rating'] ?? 0) + rating;
+    map[topic]?['rating'] = (map[topic]?['rating'] ?? 0) + rating;
     box.putAll(map);
   }
 

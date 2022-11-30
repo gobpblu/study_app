@@ -1,40 +1,34 @@
 class RawWord {
   final String word;
-  final String americanTranscription;
-  final String britishTranscription;
+  final String transcription;
   final String translation;
 
   const RawWord({
     required this.word,
-    required this.americanTranscription,
-    required this.britishTranscription,
+    required this.transcription,
     required this.translation,
   });
 
   RawWord.fromJson(Map<String, dynamic> json)
       : word = json['word'],
-        americanTranscription = json['american_transcription'],
-        britishTranscription = json['british_transcription'],
+        transcription = json['transcription'],
         translation = json['translation'];
 
   Map<String, dynamic> toJson() => {
         'word': word,
-        'americanTranscription': americanTranscription,
-        'britishTranscription': britishTranscription,
+        'transcription': transcription,
         'translation': translation,
       };
 
   RawWord copyWith({
     String? word,
-    String? americanTranscription,
-    String? britishTranscription,
+    String? transcription,
     String? translation,
   }) =>
       RawWord(
         word: word ?? this.word,
-        americanTranscription:
-            americanTranscription ?? this.americanTranscription,
-        britishTranscription: britishTranscription ?? this.britishTranscription,
+        transcription:
+            transcription ?? this.transcription,
         translation: translation ?? this.translation,
       );
 

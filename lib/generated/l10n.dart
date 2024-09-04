@@ -89,6 +89,146 @@ class S {
       args: [],
     );
   }
+
+  /// `Войти`
+  String get sign_in {
+    return Intl.message(
+      'Войти',
+      name: 'sign_in',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Google`
+  String get sign_in_with_gogle {
+    return Intl.message(
+      'Google',
+      name: 'sign_in_with_gogle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Логин и пароль`
+  String get sign_in_with_login_and_password {
+    return Intl.message(
+      'Логин и пароль',
+      name: 'sign_in_with_login_and_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Войдите в свой аккаунт, чтобы сохранить прогресс.`
+  String get auth_log_in_to_save {
+    return Intl.message(
+      'Войдите в свой аккаунт, чтобы сохранить прогресс.',
+      name: 'auth_log_in_to_save',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Войдите в аккаунт`
+  String get auth_log_in {
+    return Intl.message(
+      'Войдите в аккаунт',
+      name: 'auth_log_in',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Введите имя пользователя`
+  String get auth_title {
+    return Intl.message(
+      'Введите имя пользователя',
+      name: 'auth_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Имя пользователя`
+  String get auth_username {
+    return Intl.message(
+      'Имя пользователя',
+      name: 'auth_username',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Логин`
+  String get login {
+    return Intl.message(
+      'Логин',
+      name: 'login',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Почта`
+  String get email {
+    return Intl.message(
+      'Почта',
+      name: 'email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Пароль`
+  String get password {
+    return Intl.message(
+      'Пароль',
+      name: 'password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Некорректный адрес почты`
+  String get auth_error_invalid_email_title {
+    return Intl.message(
+      'Некорректный адрес почты',
+      name: 'auth_error_invalid_email_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Введите правильный адрес электронной почты`
+  String get auth_error_invalid_email_description {
+    return Intl.message(
+      'Введите правильный адрес электронной почты',
+      name: 'auth_error_invalid_email_description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Неправильный пароль`
+  String get auth_error_invalid_password_title {
+    return Intl.message(
+      'Неправильный пароль',
+      name: 'auth_error_invalid_password_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Введите ваш пароль`
+  String get auth_error_invalid_password_description {
+    return Intl.message(
+      'Введите ваш пароль',
+      name: 'auth_error_invalid_password_description',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
@@ -97,6 +237,7 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
   List<Locale> get supportedLocales {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'ru'),
+      Locale.fromSubtags(languageCode: 'en'),
     ];
   }
 

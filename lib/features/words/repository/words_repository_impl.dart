@@ -5,8 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:study_app/features/ratings/db/ratings_hive.dart';
 import 'package:study_app/features/realtime_database/service/realtime_database_service.dart';
-import 'package:study_app/features/user/repository/user_local_repository.dart';
-import 'package:study_app/features/user/repository/user_local_repository_impl.dart';
 import 'package:study_app/features/words/models/word.dart';
 import 'package:study_app/features/words/models/word_topic_tile_item.dart';
 
@@ -22,9 +20,7 @@ class WordsRepositoryImpl {
   }
 
   void createWordWithAudio() async {
-    final audio = await rootBundle
-        .load('assets/words/audio/word_1.mp3')
-        .then((bytes) => bytes.buffer.asUint8List());
+    final audio = await rootBundle.load('assets/words/audio/word_1.mp3').then((bytes) => bytes.buffer.asUint8List());
     /*const word = Word(
       word: 'Christmas',
       americanTranscription: '[ˈkrɪsməs]',
@@ -43,9 +39,8 @@ class WordsRepositoryImpl {
   }
 
   Future addImage() async {
-    final imageData =
-        await NetworkAssetBundle(Uri.parse('https://drive.google.com/uc'))
-            .load('export=view&id=1enFrCA17boYga_Y5XvtPTz2XTxB-2W--');
+    final imageData = await NetworkAssetBundle(Uri.parse('https://drive.google.com/uc'))
+        .load('export=view&id=1enFrCA17boYga_Y5XvtPTz2XTxB-2W--');
     print(imageData.buffer.asUint8List());
     // final word = await WordsDatabase.instance.readWord(3);
     // final id = WordsDatabase.instance;
@@ -56,30 +51,29 @@ class WordsRepositoryImpl {
   List<WordTopicTileItem> loadAllWordsTopics() {
     return const [
       WordTopicTileItem(
-          title: 'Семья',
-          topic: 'family',
-          jsonPath: 'assets/words/topics/words_family.json',
-          audiosPath: 'assets/words/audio/family/',
-          picturesPath: 'assets/words/images/family/',
-          iconPath: 'assets/icons/family.jpeg'),
+        title: 'Семья',
+        topic: 'family',
+        jsonPath: 'assets/words/topics/words_family.json',
+        audiosPath: 'assets/words/audio/family/',
+        picturesPath: 'assets/words/images/family/',
+        iconPath: 'assets/icons/ic_family.svg',
+      ),
       WordTopicTileItem(
-          title: 'Рождение, свадьба, смерть',
-          topic: 'birth_marriage_death',
-          jsonPath: 'assets/words/topics/words_birth_marriage_death.json',
-          audiosPath: 'assets/words/audio/birth_marriage_death/',
-          picturesPath: 'assets/words/images/birth_marriage_death/',
-          iconPath: 'assets/icons/birth_marriage_death.jpg'),
+        title: 'Рождение, свадьба, смерть',
+        topic: 'birth_marriage_death',
+        jsonPath: 'assets/words/topics/words_birth_marriage_death.json',
+        audiosPath: 'assets/words/audio/birth_marriage_death/',
+        picturesPath: 'assets/words/images/birth_marriage_death/',
+        iconPath: 'assets/icons/birth_marriage_death.jpg',
+      ),
     ];
   }
 
   Future<List<Word>> getLocalWords({required String topic}) async {
     final List<Word> words = [];
-    final jsonWords =
-        await rootBundle.loadString('assets/words/topics/words_$topic.json');
+    final jsonWords = await rootBundle.loadString('assets/words/topics/words_$topic.json');
     print('$jsonWords');
-    final rawWords = (json.decode(jsonWords) as List<dynamic>)
-        .map((e) => RawWord.fromJson(e))
-        .toList();
+    final rawWords = (json.decode(jsonWords) as List<dynamic>).map((e) => RawWord.fromJson(e)).toList();
     for (var item in rawWords) {
       final word = Word(
         word: item.word,
@@ -106,8 +100,8 @@ class WordsRepositoryImpl {
     RatingsHive hive = Get.put(RatingsHive());
     var connectivity = await (Connectivity().checkConnectivity());
     if (connectivity == ConnectivityResult.mobile || connectivity == ConnectivityResult.wifi) {
-    final RealtimeDatabaseService db = Get.put(RealtimeDatabaseService());
-    final topicRating = await db.getTopicRating(topic);
+      final RealtimeDatabaseService db = Get.put(RealtimeDatabaseService());
+      final topicRating = await db.getTopicRating(topic);
       hive.saveUserRatingByTopic(topic, topicRating);
       return topicRating;
     } else {

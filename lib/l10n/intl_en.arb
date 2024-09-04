@@ -1,0 +1,26 @@
+{
+  "@@locale": "en_US",
+  "bottom_nav_words": "WORDS",
+  "bottom_nav_rules": "RULES",
+  "bottom_nav_exercises": "EXERCISES",
+
+  "word_tile_1": "Lesson 1",
+
+  "sign_in": "Sign in",
+  "sign_in_with_gogle": "Google",
+  "sign_in_with_login_and_password": "Login and password",
+
+  "auth_log_in_to_save": "Log in to your account to save your progress.",
+  "auth_log_in": "Log in to your account",
+  "auth_title": "Enter username",
+  "auth_username": "Username",
+
+  "login": "Login",
+  "email": "Email",
+  "password": "Password",
+
+  "auth_error_invalid_email_title": "Invalid email",
+  "auth_error_invalid_email_description": "Enter correct email address",
+  "auth_error_invalid_password_title": "Invalid password",
+  "auth_error_invalid_password_description": "Enter your password"
+}

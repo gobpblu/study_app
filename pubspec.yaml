@@ -6,33 +6,36 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.18.0 <3.0.0'
+  sdk: '>=3.0.0 <3.4.0'
 
 dependencies:
   flutter:
     sdk: flutter
 
-  firebase_core: ^1.24.0
+  flutter_localizations:
+    sdk: flutter
+
+  firebase_core: ^2.32.0
   get: ^4.6.5
-  cloud_firestore: ^3.5.1
-  google_fonts: ^3.0.1
+  cloud_firestore: ^4.17.5
+  google_fonts: ^6.2.1
   auto_route: ^5.0.2
   get_it: ^7.2.0
-  intl: ^0.17.0
+  intl: ^0.18.1
   equatable: ^2.0.5
   json_annotation: ^4.7.0
   bloc: ^8.1.0
   flutter_bloc: ^8.1.1
-  audioplayers: ^1.1.1
-  firebase_auth: ^3.11.2
-  google_sign_in: ^5.4.2
-  firebase_database: ^9.1.7
+  audioplayers: ^6.0.0
+  firebase_auth: ^4.20.0
+  google_sign_in: ^6.2.1
+  firebase_database: ^10.5.7
   shared_preferences: ^2.0.15
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   path_provider: ^2.0.11
-  firebase_storage: ^10.3.11
-  connectivity_plus: ^3.0.2
+  firebase_storage: ^11.7.7
+  connectivity_plus: ^6.0.3
   flutter_svg: ^1.1.6
   assets_audio_player: ^3.0.5
 
@@ -57,8 +60,6 @@ flutter:
     - assets/texts/
     - assets/words/topics/
     - assets/words/audio/
-    - assets/words/images/
-    - assets/words/images/family/
     - assets/words/audio/family/
     - assets/words/audio/birth_marriage_death/
 

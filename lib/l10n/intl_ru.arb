@@ -4,5 +4,24 @@
   "bottom_nav_rules": "RULES",
   "bottom_nav_exercises": "EXERCISES",
 
-  "word_tile_1": "Урок 1"
+  "word_tile_1": "Урок 1",
+
+  "sign_in": "Войти",
+  "sign_in_with_gogle": "Google",
+  "sign_in_with_login_and_password": "Логин и пароль",
+
+  "auth_log_in_to_save": "Войдите в свой аккаунт, чтобы сохранить прогресс.",
+  "auth_log_in": "Войдите в аккаунт",
+  "auth_title": "Введите имя пользователя",
+  "auth_username": "Имя пользователя",
+
+  "login": "Логин",
+  "email": "Почта",
+  "password": "Пароль",
+
+  "auth_error_invalid_email_title": "Некорректный адрес почты",
+  "auth_error_invalid_email_description": "Введите правильный адрес электронной почты",
+  "auth_error_invalid_password_title": "Неправильный пароль",
+  "auth_error_invalid_password_description": "Введите ваш пароль"
+
 }

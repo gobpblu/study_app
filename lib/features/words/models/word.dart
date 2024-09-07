@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:equatable/equatable.dart';
 
 class WordField {
@@ -24,6 +26,7 @@ class Word extends Equatable {
   final String translation;
   final String? image;
   final String audio;
+  final Uint8List? audioBytes;
 
   // final String britishAudio;
 
@@ -33,6 +36,7 @@ class Word extends Equatable {
     required this.translation,
     this.image,
     required this.audio,
+    this.audioBytes,
     // required this.britishAudio,
   });
 

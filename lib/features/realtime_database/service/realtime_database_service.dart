@@ -86,7 +86,7 @@ class RealtimeDatabaseService {
                 );
               } else if (topicEntry.value is Map) {
                 print('I work is map: ${topicEntry.value}');
-                final words = topicEntry.value as Map<String, int>;
+                final words = topicEntry.value as Map<String, dynamic>;
                 for (var word in words.entries) {
                   print('word: $word');
                   (updateMap[entry.key][topicEntry.key] as Map).update(

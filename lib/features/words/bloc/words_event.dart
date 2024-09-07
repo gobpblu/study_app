@@ -26,4 +26,11 @@ class LoadParticularWords extends WordsEvent {
   List<Object?> get props => [firstId, lastId];
 }
 
-class LoadAllWordsTopics extends WordsEvent {}
+class LoadAllWordsTopics extends WordsEvent {
+  final LevelEnum level;
+
+  LoadAllWordsTopics({required this.level});
+
+  @override
+  List<Object?> get props => [level];
+}

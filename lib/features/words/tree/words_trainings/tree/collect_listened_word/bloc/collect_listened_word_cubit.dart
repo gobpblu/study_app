@@ -155,7 +155,12 @@ class CollectListenedWordCubit extends Cubit<CollectListenedWordState> {
   }
 
   Future _setAudio() async {
-    await state.audioPlayer.setSourceAsset(state.currentWord.audio);
+    final audioBytes = state.currentWord.audioBytes;
+    if (audioBytes != null) {
+      await state.audioPlayer.setSourceBytes(audioBytes);
+    } else {
+      await state.audioPlayer.setSourceAsset(state.currentWord.audio);
+    }
     await state.audioPlayer.resume();
     final duration = await state.audioPlayer.getDuration();
     if (duration != null) await Future.delayed(duration);

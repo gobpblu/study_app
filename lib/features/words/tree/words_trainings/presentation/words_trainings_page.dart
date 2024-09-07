@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:study_app/core/di/dependency_injection.dart';
 import 'package:study_app/core/res/app_colors.dart';
 import 'package:study_app/features/ratings/presentation/ratings_page.dart';
 import 'package:study_app/features/words/tree/words_trainings/tree/choose_translation/bloc/choose_translation_cubit.dart';
@@ -19,25 +20,16 @@ class WordsTrainingsPage extends StatelessWidget {
     required this.title,
     required this.assetJsonName,
     required this.topic,
-    required this.audioPath,
-    required this.picturesPath,
   }) : super(key: key);
 
   final String title;
   final String assetJsonName;
   final String topic;
-  final String audioPath;
-  final String picturesPath;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => WordsTrainingsCubit(
-        jsonAsset: assetJsonName,
-        audioAssetPath: audioPath,
-        picturesAssetPath: picturesPath,
-        topic: topic,
-      ),
+      create: (context) => getIt.get<WordsTrainingsCubit>(param1: topic, param2: assetJsonName),
       child: Scaffold(
         backgroundColor: primaryColor,
         appBar: AppBar(
@@ -134,79 +126,7 @@ class WordsTrainingsPage extends StatelessWidget {
             ),
           ],
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 24,
-              ),
-              Align(
-                child: Text(title,
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    )),
-              ),
-              BlocBuilder<WordsTrainingsCubit, WordsTrainingsState>(
-                builder: (context, state) {
-                  return Padding(
-                    padding: const EdgeInsets.only(left: 16.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        _TrainingCard(
-                          title: 'Потренируй слух',
-                          picture: const Icon(
-                            Icons.headphones,
-                            size: 108,
-                          ),
-                          onTap: () => Get.to(() => CollectListenedWordPage(
-                              topic: topic, words: state.words..shuffle())),
-                        ),
-                        _TrainingCard(
-                          picture: Image.asset(
-                            'assets/images/word_collect.png',
-                            color: onSurfaceTextColor,
-                            fit: BoxFit.fitHeight,
-                          ),
-                          title: 'Собери слово',
-                          onTap: () => Get.to(BlocProvider(
-                            create: (context) =>
-                                CollectWordCubit(state.words..shuffle()),
-                            child: CollectWordPage(topic: topic),
-                          )),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ),
-              BlocBuilder<WordsTrainingsCubit, WordsTrainingsState>(
-                builder: (context, state) {
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      _TrainingCard(
-                          title: 'Выбери перевод',
-                          picture: const Icon(
-                            Icons.check_circle_outline_outlined,
-                            size: 108,
-                          ),
-                          onTap: () => Get.to(
-                                () => BlocProvider(
-                                  create: (context) => ChooseTranslationCubit(
-                                      topic: topic,
-                                      words: state.words..shuffle()),
-                                  child: ChooseTranslationPage(),
-                                ),
-                              )),
-                    ],
-                  );
-                },
-              )
-            ],
-          ),
-        ),
+        body: _Body(title: title, topic: topic),
       ),
     );
   }
@@ -219,6 +139,98 @@ class WordsTrainingsPage extends StatelessWidget {
     } else {
       return '$count слов';
     }
+  }
+}
+
+class _Body extends StatelessWidget {
+  const _Body({
+    super.key,
+    required this.title,
+    required this.topic,
+  });
+
+  final String title;
+  final String topic;
+
+  @override
+  Widget build(BuildContext context) {
+    final isLoading = context.select((WordsTrainingsCubit cubit) => cubit.state.isLoading);
+    if (isLoading) {
+      return const Center(child: CircularProgressIndicator());
+    }
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          const SizedBox(
+            height: 24,
+          ),
+          Align(
+            child: Text(title,
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                )),
+          ),
+          BlocBuilder<WordsTrainingsCubit, WordsTrainingsState>(
+            builder: (context, state) {
+              return Padding(
+                padding: const EdgeInsets.only(left: 16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    _TrainingCard(
+                      title: 'Потренируй слух',
+                      picture: const Icon(
+                        Icons.headphones,
+                        size: 108,
+                      ),
+                      onTap: () => Get.to(() => CollectListenedWordPage(
+                          topic: topic, words: state.words..shuffle())),
+                    ),
+                    _TrainingCard(
+                      picture: Image.asset(
+                        'assets/images/word_collect.png',
+                        color: onSurfaceTextColor,
+                        fit: BoxFit.fitHeight,
+                      ),
+                      title: 'Собери слово',
+                      onTap: () => Get.to(BlocProvider(
+                        create: (context) =>
+                            CollectWordCubit(state.words..shuffle()),
+                        child: CollectWordPage(topic: topic),
+                      )),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+          BlocBuilder<WordsTrainingsCubit, WordsTrainingsState>(
+            builder: (context, state) {
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _TrainingCard(
+                      title: 'Выбери перевод',
+                      picture: const Icon(
+                        Icons.check_circle_outline_outlined,
+                        size: 108,
+                      ),
+                      onTap: () => Get.to(
+                            () => BlocProvider(
+                              create: (context) => ChooseTranslationCubit(
+                                  topic: topic,
+                                  words: state.words..shuffle()),
+                              child: ChooseTranslationPage(),
+                            ),
+                          )),
+                ],
+              );
+            },
+          )
+        ],
+      ),
+    );
   }
 }
 

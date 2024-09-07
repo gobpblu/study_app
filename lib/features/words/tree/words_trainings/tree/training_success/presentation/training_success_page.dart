@@ -54,6 +54,7 @@ class TrainingSuccessPage extends StatelessWidget {
           body: BlocBuilder<TrainingSuccessCubit, TrainingSuccessState>(
             builder: (context, state) {
               return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Stack(children: [
                     Container(
@@ -76,7 +77,7 @@ class TrainingSuccessPage extends StatelessWidget {
                       ),
                     ),
                     Align(
-                      heightFactor: 4.2,
+                      heightFactor: 4.5,
                       alignment: Alignment.center,
                       child: Text(
                         getPointsText(state.points),

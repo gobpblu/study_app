@@ -43,7 +43,12 @@ class WordsListPage extends StatelessWidget {
                             fontSize: 14, fontWeight: FontWeight.normal)),
                     trailing: IconButton(
                       onPressed: () {
-                        player.play(AssetSource(e.audio));
+                        final audioBytes = e.audioBytes;
+                        if (audioBytes != null ) {
+                          player.play(BytesSource(audioBytes));
+                        } else {
+                          player.play(AssetSource(e.audio));
+                        }
                       },
                       icon: const Icon(Icons.play_arrow),
                     ),

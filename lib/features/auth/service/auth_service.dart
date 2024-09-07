@@ -14,7 +14,7 @@ class AuthService {
 
   final UserLocalRepository userRepository = Get.put(UserLocalRepositoryImpl());
 
-  handleAuthState() {
+  Widget handleAuthState() {
     return StreamBuilder(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (buildContext, snapshot) {

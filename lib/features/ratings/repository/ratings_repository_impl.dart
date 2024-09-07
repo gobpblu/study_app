@@ -26,8 +26,8 @@ class RatingsRepositoryImpl extends RatingsRepository {
     print('Ratings: $ratings');
     if (ratings.isNotEmpty) {
       final connectivityResult = await Connectivity().checkConnectivity();
-      if (connectivityResult == ConnectivityResult.wifi ||
-          connectivityResult == ConnectivityResult.mobile) {
+      if (connectivityResult[0] == ConnectivityResult.wifi ||
+          connectivityResult[0] == ConnectivityResult.mobile) {
         final result = await db.uploadRatingsFromLocal(map: ratings);
         if (result) {
           int count = await hive.clearWordsRatings();

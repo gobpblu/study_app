@@ -229,6 +229,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Уровни`
+  String get levels_title {
+    return Intl.message(
+      'Уровни',
+      name: 'levels_title',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

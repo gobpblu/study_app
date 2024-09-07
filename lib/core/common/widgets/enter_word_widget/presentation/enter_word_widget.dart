@@ -15,13 +15,12 @@ class EnterWordWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
-      height: 64,
+      padding: const EdgeInsets.all(12),
       color: status == WordStatus.process
           ? enterWordsBackgroundColor
           : Colors.green,
       duration: const Duration(milliseconds: 500),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+      child: Wrap(
         children: formedWord
             .map((e) => Padding(
                   padding: const EdgeInsets.all(4.0),

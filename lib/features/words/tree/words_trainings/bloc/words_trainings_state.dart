@@ -4,8 +4,6 @@ class WordsTrainingsState extends Equatable {
   final bool isLoading;
   final List<Word> words;
   final String jsonAsset;
-  final String audioAssetPath;
-  final String picturesAssetPath;
   final String topic;
   final int rating;
 
@@ -13,8 +11,6 @@ class WordsTrainingsState extends Equatable {
     required this.isLoading,
     required this.words,
     required this.jsonAsset,
-    required this.audioAssetPath,
-    required this.picturesAssetPath,
     required this.topic,
     required this.rating,
   });
@@ -23,8 +19,6 @@ class WordsTrainingsState extends Equatable {
     bool? isLoading,
     List<Word>? words,
     String? jsonAsset,
-    String? audioAssetPath,
-    String? picturesAssetPath,
     String? topic,
     int? rating,
   }) =>
@@ -32,8 +26,6 @@ class WordsTrainingsState extends Equatable {
         isLoading: isLoading ?? this.isLoading,
         words: words ?? this.words,
         jsonAsset: jsonAsset ?? this.jsonAsset,
-        audioAssetPath: audioAssetPath ?? this.audioAssetPath,
-        picturesAssetPath: picturesAssetPath ?? this.picturesAssetPath,
         topic: topic ?? this.topic,
         rating: rating ?? this.rating,
       );
@@ -43,8 +35,6 @@ class WordsTrainingsState extends Equatable {
         isLoading,
         words,
         jsonAsset,
-        audioAssetPath,
-        picturesAssetPath,
         rating,
       ];
 }

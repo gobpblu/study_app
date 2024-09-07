@@ -12,20 +12,20 @@ part 'collect_word_state.dart';
 class CollectWordCubit extends Cubit<CollectWordState> {
   CollectWordCubit(List<Word> words)
       : super(CollectWordState(
-    status: WordStatus.process,
-    isLoading: false,
-    index: 0,
-    words: words,
-    characters: _generateCharacters(words[0].word),
-    points: 0,
-    formedWord: List.generate(words[0].word.length, (index) => '_'),
-    currentWord: words[0],
-    shouldAnimate: false,
-    guessedChars: 0,
-    wordsWithPoints: const [],
-    currentWordPoints: 0,
-    currentWordMistakes: 0,
-  ));
+          status: WordStatus.process,
+          isLoading: false,
+          index: 0,
+          words: words,
+          characters: _generateCharacters(words[0].word),
+          points: 0,
+          formedWord: List.generate(words[0].word.length, (index) => '_'),
+          currentWord: words[0],
+          shouldAnimate: false,
+          guessedChars: 0,
+          wordsWithPoints: const [],
+          currentWordPoints: 0,
+          currentWordMistakes: 0,
+        ));
 
   final soundsPlayer = AudioPlayer();
 
@@ -65,17 +65,16 @@ class CollectWordCubit extends Cubit<CollectWordState> {
 
   bool isLastWord() => state.index == 9;
 
-  bool isGuessedAllChars() =>
-      state.guessedChars + 1 == state.currentWord.word.length;
+  bool isGuessedAllChars() => state.guessedChars + 1 == state.currentWord.word.length;
 
-  bool isCorrectCharacter(String character) =>
-      character == state.currentWord.word[state.guessedChars];
+  bool isCorrectCharacter(String character) => character == state.currentWord.word[state.guessedChars];
 
   void lastWordSuccessEmit() {
     final wordWithPoints = WordWithPoints(
-        word: state.currentWord.word,
-        points: state.currentWordPoints + 1,
-        isRight: state.currentWordMistakes <= 1);
+      word: state.currentWord.word,
+      points: state.currentWordPoints + 1,
+      isRight: state.currentWordMistakes <= 1,
+    );
     emit(state.copyWith(
       status: WordStatus.lastSuccess,
       points: state.points + 1,
@@ -85,25 +84,24 @@ class CollectWordCubit extends Cubit<CollectWordState> {
 
   Future wordSuccessEmit() async {
     final wordWithPoints = WordWithPoints(
-        word: state.currentWord.word,
-        points: state.currentWordPoints + 1,
-        isRight: state.currentWordMistakes <= 1);
+        word: state.currentWord.word, points: state.currentWordPoints + 1, isRight: state.currentWordMistakes <= 1);
     emit(state.copyWith(
       status: WordStatus.success,
       isLoading: true,
     ));
     await Future.delayed(const Duration(milliseconds: 300));
-    emit(state.copyWith(status: WordStatus.process,
+    emit(state.copyWith(
+      status: WordStatus.process,
       currentWord: state.words[state.index + 1],
       index: state.index + 1,
       points: state.points + 1,
       currentWordPoints: 0,
       currentWordMistakes: 0,
-      formedWord: List.generate(
-          state.words[state.index + 1].word.length, (index) => '_'),
+      formedWord: List.generate(state.words[state.index + 1].word.length, (index) => '_'),
       characters: _generateCharacters(state.words[state.index + 1].word),
       guessedChars: 0,
-      wordsWithPoints: List.of(state.wordsWithPoints)..add(wordWithPoints),));
+      wordsWithPoints: List.of(state.wordsWithPoints)..add(wordWithPoints),
+    ));
   }
 
   void wordProcessEmit() {
@@ -140,5 +138,4 @@ class CollectWordCubit extends Cubit<CollectWordState> {
       await emitMistake();
     }
   }
-
 }

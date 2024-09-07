@@ -55,7 +55,10 @@ class CollectWordPage extends StatelessWidget {
               ],
             ),
             body: SingleChildScrollView(
+
               child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   /*Container(
                     height: 250,
@@ -71,16 +74,13 @@ class CollectWordPage extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 48),
-                  EnterWordWidget(
-                      status: state.status, formedWord: state.formedWord),
+                  EnterWordWidget(status: state.status, formedWord: state.formedWord),
                   const SizedBox(height: 80),
                   WordCharacters(
-                        word: state.formedWord,
-                        characters: state.characters,
-                        onTap: (character, index) => context
-                            .read<CollectWordCubit>()
-                            .checkCharacter(character, index),
-                      ),
+                    word: state.formedWord,
+                    characters: state.characters,
+                    onTap: (character, index) => context.read<CollectWordCubit>().checkCharacter(character, index),
+                  ),
                 ],
               ),
             ),

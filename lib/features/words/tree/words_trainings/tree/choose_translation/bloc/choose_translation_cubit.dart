@@ -17,10 +17,7 @@ class ChooseTranslationCubit extends Cubit<ChooseTranslationState> {
           words: words..shuffle(),
           wordsWithPoints: const [],
           currentWord: words[0],
-          wordsOnScreen: [
-            words[0],
-            ...words.where((element) => element != words[0]).take(5)
-          ],
+          wordsOnScreen: [words[0], ...words.where((element) => element != words[0]).take(5)],
           points: 0,
           currentWordPoints: 0,
           pickedWord: PickedWord(index: -1, isRight: false),
@@ -41,7 +38,12 @@ class ChooseTranslationCubit extends Cubit<ChooseTranslationState> {
   }
 
   Future playAudio(int index) async {
-    await player.setSourceAsset(state.currentWord.audio);
+    final audioBytes = state.currentWord.audioBytes;
+    if (audioBytes != null) {
+      await player.setSourceBytes(audioBytes);
+    } else {
+      await player.setSourceAsset(state.currentWord.audio);
+    }
     await player.resume();
     final duration = await player.getDuration();
     if (duration != null) await Future.delayed(duration);
@@ -72,8 +74,7 @@ class ChooseTranslationCubit extends Cubit<ChooseTranslationState> {
     }
     wordWithPoints.isRight ? await playRightSound() : await playWrongSound();
     emit(state.copyWith(
-      pickedWord:
-      PickedWord(index: pickedIndex, isRight: wordWithPoints.isRight),
+      pickedWord: PickedWord(index: pickedIndex, isRight: wordWithPoints.isRight),
     ));
     await playAudio(state.index);
     final index = state.index == 9 ? state.index : state.index + 1;
@@ -83,12 +84,7 @@ class ChooseTranslationCubit extends Cubit<ChooseTranslationState> {
         points: points,
         wordsWithPoints: List.of(state.wordsWithPoints)..add(wordWithPoints),
         currentWord: state.words[index],
-        wordsOnScreen: [
-          state.words[index],
-          ...state.words
-              .where((element) => element != state.words[index])
-              .take(5)
-        ],
+        wordsOnScreen: [state.words[index], ...state.words.where((element) => element != state.words[index]).take(5)],
         pickedWord: const PickedWord(index: -1, isRight: false)));
   }
 

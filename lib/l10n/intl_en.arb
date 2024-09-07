@@ -22,5 +22,8 @@
   "auth_error_invalid_email_title": "Invalid email",
   "auth_error_invalid_email_description": "Enter correct email address",
   "auth_error_invalid_password_title": "Invalid password",
-  "auth_error_invalid_password_description": "Enter your password"
+  "auth_error_invalid_password_description": "Enter your password",
+
+  "levels_title": "Levels"
+
 }

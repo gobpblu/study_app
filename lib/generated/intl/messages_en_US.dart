@@ -41,6 +41,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "bottom_nav_rules": MessageLookupByLibrary.simpleMessage("RULES"),
         "bottom_nav_words": MessageLookupByLibrary.simpleMessage("WORDS"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
+        "levels_title": MessageLookupByLibrary.simpleMessage("Levels"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "sign_in": MessageLookupByLibrary.simpleMessage("Sign in"),

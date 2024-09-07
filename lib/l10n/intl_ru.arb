@@ -22,6 +22,8 @@
   "auth_error_invalid_email_title": "Некорректный адрес почты",
   "auth_error_invalid_email_description": "Введите правильный адрес электронной почты",
   "auth_error_invalid_password_title": "Неправильный пароль",
-  "auth_error_invalid_password_description": "Введите ваш пароль"
+  "auth_error_invalid_password_description": "Введите ваш пароль",
+
+  "levels_title": "Уровни"
 
 }

@@ -44,6 +44,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "bottom_nav_rules": MessageLookupByLibrary.simpleMessage("RULES"),
         "bottom_nav_words": MessageLookupByLibrary.simpleMessage("WORDS"),
         "email": MessageLookupByLibrary.simpleMessage("Почта"),
+        "levels_title": MessageLookupByLibrary.simpleMessage("Уровни"),
         "login": MessageLookupByLibrary.simpleMessage("Логин"),
         "password": MessageLookupByLibrary.simpleMessage("Пароль"),
         "sign_in": MessageLookupByLibrary.simpleMessage("Войти"),

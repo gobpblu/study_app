@@ -239,6 +239,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Профиль`
+  String get profile_title {
+    return Intl.message(
+      'Профиль',
+      name: 'profile_title',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

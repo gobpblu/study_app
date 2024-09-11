@@ -1,17 +1,19 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:study_app/core/res/db_paths.dart';
-import 'package:study_app/features/user/repository/user_local_repository.dart';
+import 'package:study_app/features/auth/domain/repository/user_local_repository.dart';
 
 import '../../ratings/models/user_rating.dart';
-import '../../user/repository/user_local_repository_impl.dart';
 import '../../words/models/word.dart';
 import '../../words/models/word_with_points.dart';
 
 class RealtimeDatabaseService {
   FirebaseDatabase db = FirebaseDatabase.instance;
-  UserLocalRepository userRepository = Get.put(UserLocalRepositoryImpl());
+  final UserLocalRepository _userRepository;
+
+  RealtimeDatabaseService({
+    required UserLocalRepository userRepository,
+  }) : _userRepository = userRepository;
 
   Future<List<Word>> loadWords(int startId, int endId) async {
     final ref = db.ref('words/1-20/words');
@@ -30,9 +32,8 @@ class RealtimeDatabaseService {
     return [];
   }
 
-  Future<bool> uploadRatingsFromLocal2(
-      {required Map<dynamic, dynamic> map}) async {
-    final uid = userRepository.getUser().uid;
+  Future<bool> uploadRatingsFromLocal2({required Map<dynamic, dynamic> map}) async {
+    final uid = _userRepository.getUser().uniqueId;
 
     DatabaseReference ref = db.ref("words/ratings/topics/$uid");
     TransactionResult result = await ref.runTransaction((Object? ratingObject) {
@@ -48,9 +49,8 @@ class RealtimeDatabaseService {
     return result.committed;
   }
 
-  Future<bool> uploadRatingsFromLocal(
-      {required Map<dynamic, dynamic> map}) async {
-    final uid = userRepository.getUser().uid;
+  Future<bool> uploadRatingsFromLocal({required Map<dynamic, dynamic> map}) async {
+    final uid = _userRepository.getUser().uniqueId;
 
     DatabaseReference ref = db.ref("words/ratings/topics/$uid");
     TransactionResult result = await ref.runTransaction((Object? ratingObject) {
@@ -64,8 +64,7 @@ class RealtimeDatabaseService {
         print(updateMap);
         for (var entry in map.entries) {
           if (entry.key == 'overall_rating') {
-            updateMap.update(entry.key, (value) => value + entry.value,
-                ifAbsent: () => entry.value);
+            updateMap.update(entry.key, (value) => value + entry.value, ifAbsent: () => entry.value);
           } else if (updateMap[entry.key] == null) {
             print('I work == null: ${updateMap.entries}');
             updateMap.putIfAbsent(entry.key, () => entry.value);
@@ -75,8 +74,7 @@ class RealtimeDatabaseService {
               if (updateMap[entry.key][topicEntry.key] == null) {
                 print('I work: updateMapEntryKey:${updateMap[entry.key]}'
                     '\nupdateMapEntryKeyTopicEntryKey:${updateMap[entry.key][topicEntry.key]}');
-                (updateMap[entry.key] as Map)
-                    .putIfAbsent(topicEntry.key, () => topicEntry.value);
+                (updateMap[entry.key] as Map).putIfAbsent(topicEntry.key, () => topicEntry.value);
               } else if (topicEntry.value is int) {
                 print('I work is int');
                 (updateMap[entry.key] as Map).update(
@@ -89,9 +87,8 @@ class RealtimeDatabaseService {
                 final words = topicEntry.value as Map<String, dynamic>;
                 for (var word in words.entries) {
                   print('word: $word');
-                  (updateMap[entry.key][topicEntry.key] as Map).update(
-                      word.key, (value) => value + word.value,
-                      ifAbsent: () => word.value);
+                  (updateMap[entry.key][topicEntry.key] as Map)
+                      .update(word.key, (value) => value + word.value, ifAbsent: () => word.value);
                 }
               }
             }
@@ -119,8 +116,7 @@ class RealtimeDatabaseService {
     final userUrl = 'words/ratings/$uid/$startIndex-$endIndex';
     final userRatingRef = db.ref(userUrl);
     print('$userRatingRef');
-    TransactionResult result =
-        await userRatingRef.runTransaction((Object? ratingObject) {
+    TransactionResult result = await userRatingRef.runTransaction((Object? ratingObject) {
       print('ratingObject: $ratingObject');
       Map<String, dynamic> userRating;
       if (ratingObject == null) {
@@ -138,22 +134,18 @@ class RealtimeDatabaseService {
         userRating['wrong_answers'] = wrongAnswers;
       } else {
         userRating = Map<String, dynamic>.from(ratingObject as Map);
-        userRating['common_rating'] =
-            (userRating['common_rating'] ?? 0) + rating;
+        userRating['common_rating'] = (userRating['common_rating'] ?? 0) + rating;
         userRating[training] = (userRating[training] ?? 0) + rating;
 
         int rightAnswers = 0;
         int wrongAnswers = 0;
         for (var word in words) {
           if (userRating[word.word] != null) {
-            userRating[word.word]['points'] =
-                (userRating[word.word]['points'] ?? 0) + word.points;
+            userRating[word.word]['points'] = (userRating[word.word]['points'] ?? 0) + word.points;
             userRating[word.word]['correct_answers'] =
-                (userRating[word.word]?['correct_answers'] ?? 0) +
-                    (word.isRight ? 1 : 0);
+                (userRating[word.word]?['correct_answers'] ?? 0) + (word.isRight ? 1 : 0);
             userRating[word.word]['wrong_answers'] =
-                (userRating[word.word]?['wrong_answers'] ?? 0) +
-                    (word.isRight ? 0 : 1);
+                (userRating[word.word]?['wrong_answers'] ?? 0) + (word.isRight ? 0 : 1);
           } else {
             userRating[word.word] = {
               'points': word.points,
@@ -163,10 +155,8 @@ class RealtimeDatabaseService {
           }
           word.isRight ? rightAnswers++ : wrongAnswers++;
         }
-        userRating['right_answers'] =
-            (userRating['right_answers'] ?? 0) + rightAnswers;
-        userRating['wrong_answers'] =
-            (userRating['wrong_answers'] ?? 0) + wrongAnswers;
+        userRating['right_answers'] = (userRating['right_answers'] ?? 0) + rightAnswers;
+        userRating['wrong_answers'] = (userRating['wrong_answers'] ?? 0) + wrongAnswers;
       }
       print('userRating: $userRating');
       return Transaction.success(userRating);
@@ -178,8 +168,7 @@ class RealtimeDatabaseService {
 
   Future writeOverallRating(String uid, int rating) async {
     final overallWordsRatingRef = db.ref('words/ratings/$uid');
-    TransactionResult result =
-        await overallWordsRatingRef.runTransaction((Object? ratingsObject) {
+    TransactionResult result = await overallWordsRatingRef.runTransaction((Object? ratingsObject) {
       Map<String, dynamic> userRatings;
       if (ratingsObject == null) {
         userRatings = {overallRating: rating};
@@ -189,8 +178,7 @@ class RealtimeDatabaseService {
       }
       return Transaction.success(userRatings);
     });
-    debugPrint(
-        'User overall rating with id $uid is committed: ${result.committed}\n'
+    debugPrint('User overall rating with id $uid is committed: ${result.committed}\n'
         '\nSnapshot value is:${result.snapshot.value}');
   }
 
@@ -201,8 +189,7 @@ class RealtimeDatabaseService {
     final userAchievementsUrl = 'achievements/$uid/words';
     final userAchievementsRef = db.ref(userAchievementsUrl);
 
-    TransactionResult achievementsResult = await userAchievementsRef
-        .runTransaction((Object? currentUserAchievements) {
+    TransactionResult achievementsResult = await userAchievementsRef.runTransaction((Object? currentUserAchievements) {
       Map<String, dynamic> userAchievements;
       if (currentUserAchievements == null) {
         userAchievements = {
@@ -210,13 +197,11 @@ class RealtimeDatabaseService {
           bestWordsSeries: currentGuessedWordsSeries,
         };
       } else {
-        userAchievements =
-            Map<String, dynamic>.from(currentUserAchievements as Map);
+        userAchievements = Map<String, dynamic>.from(currentUserAchievements as Map);
         userAchievements[currentWordsSeries] = currentGuessedWordsSeries;
-        userAchievements[bestWordsSeries] =
-            (userAchievements[bestWordsSeries] ?? 0) > currentGuessedWordsSeries
-                ? (userAchievements[bestWordsSeries] ?? 0)
-                : currentGuessedWordsSeries;
+        userAchievements[bestWordsSeries] = (userAchievements[bestWordsSeries] ?? 0) > currentGuessedWordsSeries
+            ? (userAchievements[bestWordsSeries] ?? 0)
+            : currentGuessedWordsSeries;
       }
       return Transaction.success(userAchievements);
     });
@@ -225,8 +210,7 @@ class RealtimeDatabaseService {
   Future<bool> saveUsernameByUid(String username, String uid) async {
     final userUrl = 'users/$uid';
     final userRef = db.ref(userUrl);
-    TransactionResult result =
-        await userRef.runTransaction((Object? currentUser) {
+    TransactionResult result = await userRef.runTransaction((Object? currentUser) {
       Map<String, dynamic> userMap;
       if (currentUser == null) {
         userMap = {'username': username};
@@ -262,7 +246,7 @@ class RealtimeDatabaseService {
   }
 
   Future<int> getTopicRating(String topic) async {
-    final uid = userRepository.getUser().uid;
+    final uid = _userRepository.getUser().uniqueId;
     final ratingUrl = 'words/ratings/topics/$uid/$topic/';
     final ratingRef = db.ref(ratingUrl);
     final snapshot = await ratingRef.get();

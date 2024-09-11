@@ -15,20 +15,19 @@ import 'package:study_app/features/words/models/word_topic_tile_item.dart';
 import '../models/raw_word.dart';
 
 class WordsRepositoryImpl {
-
   final AudioFirebaseStorage _audioStorage;
   final AudiosDbService _dbService;
+  final RealtimeDatabaseService _realtimeDatabaseService;
 
   WordsRepositoryImpl({
     required AudioFirebaseStorage audioStorage,
     required AudiosDbService dbService,
-  })
-      : _audioStorage = audioStorage,
-        _dbService = dbService;
+    required RealtimeDatabaseService realtimeDatabaseService,
+  })  : _audioStorage = audioStorage,
+        _dbService = dbService,
+        _realtimeDatabaseService = realtimeDatabaseService;
 
   List<WordTopicTileItem> loadAllWordTiles() {
-    final db = Get.put(RealtimeDatabaseService());
-    final words = db.loadWords(1, 20);
     return <WordTopicTileItem>[
       // const WordTileItem(firstId: 1, lastId: 20, title: 'Lesson 1'),
     ];
@@ -147,10 +146,10 @@ class WordsRepositoryImpl {
 
   Future<int> loadTopicRating(String topic) async {
     RatingsHive hive = Get.put(RatingsHive());
-    var connectivity = await (Connectivity().checkConnectivity());
-    if (connectivity == ConnectivityResult.mobile || connectivity == ConnectivityResult.wifi) {
-      final RealtimeDatabaseService db = Get.put(RealtimeDatabaseService());
-      final topicRating = await db.getTopicRating(topic);
+    final connectivity = await (Connectivity().checkConnectivity());
+
+    if (connectivity.firstOrNull == ConnectivityResult.mobile || connectivity.firstOrNull == ConnectivityResult.wifi) {
+      final topicRating = await _realtimeDatabaseService.getTopicRating(topic);
       hive.saveUserRatingByTopic(topic, topicRating);
       return topicRating;
     } else {

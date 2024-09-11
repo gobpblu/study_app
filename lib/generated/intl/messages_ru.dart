@@ -47,6 +47,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "levels_title": MessageLookupByLibrary.simpleMessage("Уровни"),
         "login": MessageLookupByLibrary.simpleMessage("Логин"),
         "password": MessageLookupByLibrary.simpleMessage("Пароль"),
+        "profile_title": MessageLookupByLibrary.simpleMessage("Профиль"),
         "sign_in": MessageLookupByLibrary.simpleMessage("Войти"),
         "sign_in_with_gogle": MessageLookupByLibrary.simpleMessage("Google"),
         "sign_in_with_login_and_password":

@@ -1,17 +1,17 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get/get.dart';
+import 'package:study_app/core/di/dependency_injection.dart';
+import 'package:study_app/features/auth/domain/repository/user_local_repository.dart';
 import 'package:study_app/features/ratings/models/user_rating.dart';
 import 'package:study_app/features/realtime_database/service/realtime_database_service.dart';
-import 'package:study_app/features/user/repository/user_local_repository.dart';
-import 'package:study_app/features/user/repository/user_local_repository_impl.dart';
 
 import '../db/ratings_hive.dart';
 import 'ratings_repository.dart';
 
 class RatingsRepositoryImpl extends RatingsRepository {
-  final db = Get.put(RealtimeDatabaseService());
+  final RealtimeDatabaseService db = getIt();
   final hive = Get.put(RatingsHive());
-  final UserLocalRepository userRepository = Get.put(UserLocalRepositoryImpl());
+  final UserLocalRepository userRepository = getIt();
 
   @override
   Future<List<UserRating>> loadAllTrainingsRatings({required String topic}) async {
@@ -38,7 +38,6 @@ class RatingsRepositoryImpl extends RatingsRepository {
     } else {
       return [];
     }
-    final user = userRepository.getUser();
 
     // final overallRating = await db.writeOverallRating(user.uid, points);
     // print('overall Rating: $overallRating');

@@ -1,9 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
-import 'package:study_app/features/user/repository/user_local_repository.dart';
-import 'package:study_app/features/user/repository/user_local_repository_impl.dart';
+import 'package:study_app/core/di/dependency_injection.dart';
+import 'package:study_app/features/auth/domain/repository/user_local_repository.dart';
 
 import '../../home/presentation/home_page.dart';
 import '../bloc/auth_bloc.dart';
@@ -12,7 +11,7 @@ import '../presentation/login_page.dart';
 
 class AuthService {
 
-  final UserLocalRepository userRepository = Get.put(UserLocalRepositoryImpl());
+  final UserLocalRepository userRepository = getIt();
 
   Widget handleAuthState() {
     return StreamBuilder(

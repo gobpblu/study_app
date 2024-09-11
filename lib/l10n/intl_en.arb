@@ -24,6 +24,8 @@
   "auth_error_invalid_password_title": "Invalid password",
   "auth_error_invalid_password_description": "Enter your password",
 
-  "levels_title": "Levels"
+  "levels_title": "Levels",
+
+  "profile_title": "Profile"
 
 }

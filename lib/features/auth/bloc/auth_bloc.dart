@@ -2,9 +2,9 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:study_app/core/common/models/bloc_status_enum.dart';
+import 'package:study_app/core/di/dependency_injection.dart';
 import 'package:study_app/features/realtime_database/service/realtime_database_service.dart';
 
 part 'auth_event.dart';
@@ -26,7 +26,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<UpdateUsername>(_onUpdateUsername);
   }
 
-  final db = Get.put(RealtimeDatabaseService());
+  final RealtimeDatabaseService db = getIt();
 
   void _onUsernameChanged(UsernameChanged event,
       Emitter<AuthState> emit,) {
@@ -55,7 +55,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     final isSignedIn = await GoogleSignIn().isSignedIn();
     debugPrint('isSignedIn: ${isSignedIn}');
 
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    final GoogleSignInAccount? googleUser = await GoogleSignIn(
+      signInOption: SignInOption.standard
+    ).signIn();
     if (googleUser == null) return;
     // debugPrint('googleUser: ${googleUser}');
     // Obtain the auth details from the request.

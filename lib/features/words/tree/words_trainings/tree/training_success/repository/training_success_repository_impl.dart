@@ -1,15 +1,15 @@
 import 'package:get/get.dart';
+import 'package:study_app/core/di/dependency_injection.dart';
+import 'package:study_app/features/auth/domain/repository/user_local_repository.dart';
 import 'package:study_app/features/ratings/db/ratings_hive.dart';
 import 'package:study_app/features/realtime_database/service/realtime_database_service.dart';
-import 'package:study_app/features/user/repository/user_local_repository.dart';
-import 'package:study_app/features/user/repository/user_local_repository_impl.dart';
 
 import '../../../../../models/word_with_points.dart';
 import 'training_success_repository.dart';
 
 class TrainingSuccessRepositoryImpl extends TrainingSuccessRepository {
-  final UserLocalRepository userRepository = Get.put(UserLocalRepositoryImpl());
-  final db = Get.put(RealtimeDatabaseService());
+  final UserLocalRepository userRepository = getIt();
+  final RealtimeDatabaseService db = getIt();
   final ratingsHive = Get.put(RatingsHive());
 
   @override
@@ -22,7 +22,7 @@ class TrainingSuccessRepositoryImpl extends TrainingSuccessRepository {
     final user = userRepository.getUser();
     await ratingsHive.writeRatings(
         topic: topic,
-        uid: user.uid,
+        uid: user.uniqueId,
         points: points,
         words: words,
         training: training);

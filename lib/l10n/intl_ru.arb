@@ -24,6 +24,8 @@
   "auth_error_invalid_password_title": "Неправильный пароль",
   "auth_error_invalid_password_description": "Введите ваш пароль",
 
-  "levels_title": "Уровни"
+  "levels_title": "Уровни",
+
+  "profile_title": "Профиль"
 
 }

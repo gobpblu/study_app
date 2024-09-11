@@ -3,10 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:study_app/core/res/app_colors.dart';
 import 'package:study_app/features/words/models/word.dart';
+import 'package:study_app/features/words/tree/words_trainings/domain/models/word_trainings_enum.dart';
 
 import '../../../../../models/word_state.dart';
 import '../../training_success/presentation/training_success_page.dart';
-import '../bloc/choose_translation_cubit.dart';
+import 'bloc/choose_translation_cubit.dart';
 
 class ChooseTranslationPage extends StatelessWidget {
   const ChooseTranslationPage({Key? key}) : super(key: key);
@@ -20,6 +21,7 @@ class ChooseTranslationPage extends StatelessWidget {
             points: state.points,
             wordsWithPoints: state.wordsWithPoints,
             topic: state.topic,
+            wordTrainingsEnum: WordTrainingsEnum.chooseTranslation,
           ));
         }
       },
@@ -61,14 +63,13 @@ class _AppBarBottom extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ChooseTranslationCubit, ChooseTranslationState>(
-        buildWhen: (previous, current) =>
-        previous.wordsWithPoints != current.wordsWithPoints,
+        buildWhen: (previous, current) => previous.wordsWithPoints != current.wordsWithPoints,
         builder: (context, state) {
           return Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: List.generate(
               10,
-                  (index) {
+              (index) {
                 if (index >= state.wordsWithPoints.length) {
                   /*Get.to(TrainingSuccessPage(points: state.points,
                       wordsWithPoints: state.wordsWithPoints,
@@ -76,9 +77,7 @@ class _AppBarBottom extends StatelessWidget implements PreferredSizeWidget {
                   return const CircleMark(wordState: WordStateEnum.neutral);
                 } else {
                   return CircleMark(
-                      wordState: state.wordsWithPoints[index].isRight
-                          ? WordStateEnum.done
-                          : WordStateEnum.mistake);
+                      wordState: state.wordsWithPoints[index].isRight ? WordStateEnum.done : WordStateEnum.mistake);
                 }
               },
             ),
@@ -102,8 +101,7 @@ class _ChooseTranslationBody extends StatelessWidget {
             height: 64,
           ),
           BlocBuilder<ChooseTranslationCubit, ChooseTranslationState>(
-            buildWhen: (previous, current) =>
-            previous.currentWord != current.currentWord,
+            buildWhen: (previous, current) => previous.currentWord != current.currentWord,
             builder: (context, state) {
               return Align(
                 alignment: Alignment.center,
@@ -117,8 +115,7 @@ class _ChooseTranslationBody extends StatelessWidget {
           ),
           const SizedBox(height: 108),
           BlocBuilder<ChooseTranslationCubit, ChooseTranslationState>(
-            buildWhen: (previous, current) =>
-            previous.wordsOnScreen != current.wordsOnScreen,
+            buildWhen: (previous, current) => previous.wordsOnScreen != current.wordsOnScreen,
             builder: (context, state) {
               return VariantCards(words: state.wordsOnScreen..shuffle());
             },
@@ -185,8 +182,7 @@ class VariantCards extends StatelessWidget {
 }
 
 class CardWord extends StatelessWidget {
-  const CardWord({Key? key, required this.word, required this.index})
-      : super(key: key);
+  const CardWord({Key? key, required this.word, required this.index}) : super(key: key);
 
   final String word;
   final int index;
@@ -198,8 +194,7 @@ class CardWord extends StatelessWidget {
         context.read<ChooseTranslationCubit>().chooseWord(word, index);
       },
       child: BlocBuilder<ChooseTranslationCubit, ChooseTranslationState>(
-        buildWhen: (previous, current) =>
-        previous.pickedWord != current.pickedWord,
+        buildWhen: (previous, current) => previous.pickedWord != current.pickedWord,
         builder: (context, state) {
           return Container(
             height: 96,
@@ -208,12 +203,11 @@ class CardWord extends StatelessWidget {
             decoration: BoxDecoration(
               color: state.pickedWord.index == index
                   ? state.pickedWord.isRight
-                  ? Colors.green
-                  : Colors.red
-                  : state.pickedWord.index != -1 &&
-                  state.currentWord.word == word
-                  ? Colors.green
-                  : secondaryTextColor,
+                      ? Colors.green
+                      : Colors.red
+                  : state.pickedWord.index != -1 && state.currentWord.word == word
+                      ? Colors.green
+                      : secondaryTextColor,
               borderRadius: BorderRadius.circular(10),
             ),
             child: Align(

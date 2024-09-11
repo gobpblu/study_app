@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:study_app/core/res/app_colors.dart';
-import 'package:study_app/features/words/tree/words_trainings/models/word_status_enum.dart';
+import 'package:study_app/features/words/tree/words_trainings/domain/models/word_status_enum.dart';
 
 class EnterWordWidget extends StatelessWidget {
   const EnterWordWidget({

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:study_app/core/res/app_colors.dart';
-import 'package:study_app/features/words/tree/words_trainings/tree/collect_listened_word/bloc/collect_listened_word_cubit.dart';
+import 'package:study_app/features/words/tree/words_trainings/tree/collect_listened_word/presentation/bloc/collect_listened_word_cubit.dart';
 
 class AudioVisualizer extends StatelessWidget {
   const AudioVisualizer({Key? key, required this.shouldAnimate})

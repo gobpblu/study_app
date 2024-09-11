@@ -4,13 +4,13 @@ import 'package:get/get.dart';
 import 'package:study_app/core/di/dependency_injection.dart';
 import 'package:study_app/core/res/app_colors.dart';
 import 'package:study_app/features/ratings/presentation/ratings_page.dart';
-import 'package:study_app/features/words/tree/words_trainings/tree/choose_translation/bloc/choose_translation_cubit.dart';
+import 'package:study_app/features/words/tree/words_trainings/tree/choose_translation/presentation/bloc/choose_translation_cubit.dart';
+import 'package:study_app/features/words/tree/words_trainings/tree/collect_word/presentation/bloc/collect_word_cubit.dart';
 
 import '../../../../ratings/bloc/ratings_cubit.dart';
 import '../bloc/words_trainings_cubit.dart';
 import '../tree/choose_translation/presentation/choose_translation_page.dart';
 import '../tree/collect_listened_word/presentation/collect_listened_word_page.dart';
-import '../tree/collect_word/bloc/collect_word_cubit.dart';
 import '../tree/collect_word/presentation/collect_word_page.dart';
 import '../tree/words_list/presentation/words_list_page.dart';
 
@@ -29,7 +29,9 @@ class WordsTrainingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt.get<WordsTrainingsCubit>(param1: topic, param2: assetJsonName),
+      create: (context) => getIt<WordsTrainingsCubit>()
+        ..loadWords(jsonAsset: assetJsonName, topic: topic)
+        ..loadRating(topic: topic),
       child: Scaffold(
         backgroundColor: primaryColor,
         appBar: AppBar(
@@ -79,7 +81,8 @@ class WordsTrainingsPage extends StatelessWidget {
             GestureDetector(
               onTap: () {
                 Get.to(BlocProvider(
-                  create: (context) => RatingsCubit(topic: topic),
+                  create: (context) => getIt<RatingsCubit>()
+                  ..loadRatings(topic),
                   child: const RatingsPage(
                     title: 'Рейтинг по всем тренировкам',
                   ),
@@ -104,10 +107,7 @@ class WordsTrainingsPage extends StatelessWidget {
                       builder: (context, state) {
                         if (state.isLoading) {
                           return const Center(
-                            child: SizedBox(
-                                width: 16,
-                                height: 16,
-                                child: CircularProgressIndicator()),
+                            child: SizedBox(width: 16, height: 16, child: CircularProgressIndicator()),
                           );
                         } else {
                           return Text(
@@ -184,8 +184,7 @@ class _Body extends StatelessWidget {
                         Icons.headphones,
                         size: 108,
                       ),
-                      onTap: () => Get.to(() => CollectListenedWordPage(
-                          topic: topic, words: state.words..shuffle())),
+                      onTap: () => Get.to(() => CollectListenedWordPage(topic: topic, words: state.words..shuffle())),
                     ),
                     _TrainingCard(
                       picture: Image.asset(
@@ -195,8 +194,7 @@ class _Body extends StatelessWidget {
                       ),
                       title: 'Собери слово',
                       onTap: () => Get.to(BlocProvider(
-                        create: (context) =>
-                            CollectWordCubit(state.words..shuffle()),
+                        create: (context) => getIt.get<CollectWordCubit>(param1: state.words..shuffle()),
                         child: CollectWordPage(topic: topic),
                       )),
                     ),
@@ -218,9 +216,10 @@ class _Body extends StatelessWidget {
                       ),
                       onTap: () => Get.to(
                             () => BlocProvider(
-                              create: (context) => ChooseTranslationCubit(
-                                  topic: topic,
-                                  words: state.words..shuffle()),
+                              create: (context) => getIt.get<ChooseTranslationCubit>(
+                                param1: topic,
+                                param2: state.words..shuffle(),
+                              ),
                               child: ChooseTranslationPage(),
                             ),
                           )),

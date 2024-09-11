@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:study_app/core/res/app_colors.dart';
-import 'package:study_app/features/levels/domain/models/level_data.dart';
+import 'package:study_app/features/levels/domain/models/level_enum.dart';
 import 'package:study_app/features/words/presentation/words_page.dart';
 import 'package:study_app/generated/l10n.dart';
 
@@ -52,7 +52,7 @@ class _LevelItem extends StatelessWidget {
           overflow: TextOverflow.visible,
           textAlign: TextAlign.center,
           maxLines: 2,
-          style: TextStyle(fontSize: 20),
+          style: const TextStyle(fontSize: 20),
         ),
       ),
     );

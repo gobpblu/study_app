@@ -1,5 +1,3 @@
-import 'package:assets_audio_player/assets_audio_player.dart';
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
@@ -7,12 +5,14 @@ import 'package:study_app/core/common/widgets/audio_visualizer/audio_visualizer.
 import 'package:study_app/core/common/widgets/audio_visualizer/off_audio_visualizer.dart';
 import 'package:study_app/core/common/widgets/enter_word_widget/presentation/enter_word_widget.dart';
 import 'package:study_app/core/common/widgets/word_card/presentation/word_characters.dart';
+import 'package:study_app/core/di/dependency_injection.dart';
 import 'package:study_app/core/res/app_colors.dart';
+import 'package:study_app/features/words/tree/words_trainings/domain/models/word_status_enum.dart';
+import 'package:study_app/features/words/tree/words_trainings/domain/models/word_trainings_enum.dart';
 
 import '../../../../../models/word.dart';
-import '../../../models/word_status_enum.dart';
 import '../../training_success/presentation/training_success_page.dart';
-import '../bloc/collect_listened_word_cubit.dart';
+import 'bloc/collect_listened_word_cubit.dart';
 
 class CollectListenedWordPage extends StatelessWidget {
   const CollectListenedWordPage({
@@ -27,12 +27,11 @@ class CollectListenedWordPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (context) => CollectListenedWordCubit(words)..playAudio(0),
+        create: (context) => getIt.get<CollectListenedWordCubit>(param1: words)..playAudio(0),
         child: Scaffold(
           backgroundColor: primaryColor,
           appBar: AppBar(
-            title:
-                BlocBuilder<CollectListenedWordCubit, CollectListenedWordState>(
+            title: BlocBuilder<CollectListenedWordCubit, CollectListenedWordState>(
               buildWhen: (previous, current) => previous.index != current.index,
               builder: (context, state) {
                 return Text('${state.index + 1}/10');
@@ -42,22 +41,21 @@ class CollectListenedWordPage extends StatelessWidget {
             actions: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: BlocListener<CollectListenedWordCubit,
-                    CollectListenedWordState>(
+                child: BlocListener<CollectListenedWordCubit, CollectListenedWordState>(
                   listener: (context, state) {
                     if (state.status == WordStatus.lastSuccess) {
                       Get.to(TrainingSuccessPage(
                         points: state.points,
                         wordsWithPoints: state.wordsWithPoints,
                         topic: topic,
+                        wordTrainingsEnum: WordTrainingsEnum.collectListenedWord,
                       ));
                     }
                   },
                   child: Row(
                     children: [
                       const Icon(Icons.grade),
-                      BlocBuilder<CollectListenedWordCubit,
-                          CollectListenedWordState>(builder: (context, state) {
+                      BlocBuilder<CollectListenedWordCubit, CollectListenedWordState>(builder: (context, state) {
                         return Text(
                           state.points.toString(),
                           style: const TextStyle(
@@ -86,8 +84,7 @@ class CollectListenedWordPage extends StatelessWidget {
                   },
                 ),
                 BlocBuilder<CollectListenedWordCubit, CollectListenedWordState>(
-                  buildWhen: (previous, current) =>
-                      previous.shouldAnimate != current.shouldAnimate,
+                  buildWhen: (previous, current) => previous.shouldAnimate != current.shouldAnimate,
                   builder: (context, state) {
                     return SizedBox(
                       height: 84,
@@ -100,8 +97,7 @@ class CollectListenedWordPage extends StatelessWidget {
                 const SizedBox(height: 80),
                 BlocBuilder<CollectListenedWordCubit, CollectListenedWordState>(
                   buildWhen: (previous, current) =>
-                      previous.status != current.status ||
-                      previous.formedWord != current.formedWord,
+                      previous.status != current.status || previous.formedWord != current.formedWord,
                   builder: (context, state) {
                     return EnterWordWidget(
                       status: state.status,
@@ -112,15 +108,13 @@ class CollectListenedWordPage extends StatelessWidget {
                 const SizedBox(height: 80),
                 BlocBuilder<CollectListenedWordCubit, CollectListenedWordState>(
                   buildWhen: (previous, current) =>
-                      previous.characters != current.characters ||
-                      previous.formedWord != current.formedWord,
+                      previous.characters != current.characters || previous.formedWord != current.formedWord,
                   builder: (context, state) {
                     return WordCharacters(
                       word: state.formedWord,
                       characters: state.characters,
-                      onTap: (character, index) => context
-                          .read<CollectListenedWordCubit>()
-                          .checkCharacter(character, index),
+                      onTap: (character, index) =>
+                          context.read<CollectListenedWordCubit>().checkCharacter(character, index),
                     );
                   },
                 ),

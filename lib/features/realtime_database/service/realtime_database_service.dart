@@ -32,23 +32,6 @@ class RealtimeDatabaseService {
     return [];
   }
 
-  Future<bool> uploadRatingsFromLocal2({required Map<dynamic, dynamic> map}) async {
-    final uid = _userRepository.getUser().uniqueId;
-
-    DatabaseReference ref = db.ref("words/ratings/topics/$uid");
-    TransactionResult result = await ref.runTransaction((Object? ratingObject) {
-      Map<dynamic, dynamic> updateMap = {};
-      if (ratingObject == null) {
-        updateMap = map;
-      } else {
-        print(ratingObject);
-      }
-
-      return Transaction.success(updateMap);
-    });
-    return result.committed;
-  }
-
   Future<bool> uploadRatingsFromLocal({required Map<dynamic, dynamic> map}) async {
     final uid = _userRepository.getUser().uniqueId;
 

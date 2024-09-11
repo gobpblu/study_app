@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:study_app/core/di/dependency_injection.dart';
 import 'package:study_app/core/res/app_colors.dart';
-import 'package:study_app/features/levels/domain/models/level_data.dart';
+import 'package:study_app/features/levels/domain/models/level_enum.dart';
 
 import '../bloc/words_bloc.dart';
 import '../tree/words_trainings/presentation/words_trainings_page.dart';

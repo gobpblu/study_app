@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:study_app/features/words/repository/words_repository_impl.dart';
+import 'package:study_app/features/words/tree/words_trainings/domain/repository/words_training_repository.dart';
 
 import '../../../models/word.dart';
 
@@ -8,31 +8,24 @@ part 'words_trainings_state.dart';
 
 class WordsTrainingsCubit extends Cubit<WordsTrainingsState> {
   WordsTrainingsCubit({
-    required String topic,
-    required String jsonAsset,
-    required WordsRepositoryImpl wordsRepository,
+    required WordsTrainingsRepository wordsRepository,
   })  : _repository = wordsRepository,
-        super(WordsTrainingsState(
+        super(const WordsTrainingsState(
           isLoading: true,
-          words: const [],
-          jsonAsset: jsonAsset,
-          topic: topic,
+          words: [],
           rating: 0,
-        )) {
-    loadWords();
-    loadRating();
-  }
+        ));
 
-  final WordsRepositoryImpl _repository;
+  final WordsTrainingsRepository _repository;
 
-  Future loadWords() async {
+  Future loadWords({required String jsonAsset, required String topic}) async {
     emit(state.copyWith(isLoading: true));
-    final words = await _repository.getLocalWords(topic: state.jsonAsset, onlyTopic: state.topic);
+    final words = await _repository.getLocalWords(topic: jsonAsset, onlyTopic: topic);
     emit(state.copyWith(words: words, isLoading: false));
   }
 
-  Future loadRating() async {
-    final rating = await _repository.loadTopicRating(state.topic);
+  Future loadRating({required String topic}) async {
+    final rating = await _repository.loadTopicRating(topic);
     emit(state.copyWith(isLoading: false, rating: rating));
   }
 }

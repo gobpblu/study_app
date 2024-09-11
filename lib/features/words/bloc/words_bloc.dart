@@ -2,7 +2,7 @@ import 'dart:typed_data';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:study_app/features/levels/domain/models/level_data.dart';
+import 'package:study_app/features/levels/domain/models/level_enum.dart';
 import 'package:study_app/features/words/repository/words_repository_impl.dart';
 
 import '../models/word_topic_tile_item.dart';

@@ -4,10 +4,11 @@ import 'package:get/get.dart';
 import 'package:study_app/core/common/widgets/enter_word_widget/presentation/enter_word_widget.dart';
 import 'package:study_app/core/common/widgets/word_card/presentation/word_characters.dart';
 import 'package:study_app/core/res/app_colors.dart';
+import 'package:study_app/features/words/tree/words_trainings/domain/models/word_status_enum.dart';
+import 'package:study_app/features/words/tree/words_trainings/domain/models/word_trainings_enum.dart';
 
-import '../../../models/word_status_enum.dart';
 import '../../training_success/presentation/training_success_page.dart';
-import '../bloc/collect_word_cubit.dart';
+import 'bloc/collect_word_cubit.dart';
 
 class CollectWordPage extends StatelessWidget {
   const CollectWordPage({
@@ -26,6 +27,7 @@ class CollectWordPage extends StatelessWidget {
             points: state.points,
             wordsWithPoints: state.wordsWithPoints,
             topic: topic,
+            wordTrainingsEnum: WordTrainingsEnum.collectWord,
           ));
         }
       },

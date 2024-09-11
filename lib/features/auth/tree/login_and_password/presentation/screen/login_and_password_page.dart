@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
+import 'package:study_app/core/di/dependency_injection.dart';
 import 'package:study_app/features/auth/tree/login_and_password/presentation/bloc/login_and_password_bloc.dart';
 import 'package:study_app/generated/l10n.dart';
-
 
 class LoginAndPasswordPage extends StatelessWidget {
   const LoginAndPasswordPage({Key? key}) : super(key: key);
@@ -11,7 +10,7 @@ class LoginAndPasswordPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => Get.put(LoginAndPasswordBloc()),
+      create: (context) => getIt<LoginAndPasswordBloc>(),
       child: Scaffold(
         appBar: AppBar(title: Text(S.of(context).sign_in_with_login_and_password)),
         body: const _LoginBody(),

@@ -1,29 +1,25 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:get/get.dart';
-import 'package:study_app/features/ratings/repository/ratings_repository.dart';
-import 'package:study_app/features/ratings/repository/ratings_repository_impl.dart';
+import 'package:study_app/features/ratings/domain/repository/ratings_repository.dart';
 
 import '../models/user_rating.dart';
 
 part 'ratings_state.dart';
 
 class RatingsCubit extends Cubit<RatingsState> {
-  RatingsCubit({required String topic})
-      : super(RatingsState(
-          usersRatings: const [],
+  RatingsCubit({
+    required RatingsRepository repository,
+  })  : _repository = repository,
+        super(const RatingsState(
+          usersRatings: [],
           isLoading: true,
-          topic: topic,
-        )) {
-    loadRatings();
-  }
+        ));
 
-  final RatingsRepository _repository = Get.put(RatingsRepositoryImpl());
+  final RatingsRepository _repository;
 
-  Future loadRatings() async {
+  Future loadRatings(String topic) async {
     emit(state.copyWith(isLoading: true));
-    final userRatings =
-        await _repository.loadAllTrainingsRatings(topic: state.topic);
+    final userRatings = await _repository.loadAllTrainingsRatings(topic: topic);
     emit(state.copyWith(isLoading: false, usersRatings: userRatings));
   }
 }

@@ -10,6 +10,7 @@ import 'package:study_app/features/words/tree/words_trainings/di/words_trainings
 import 'package:study_app/features/words/tree/words_trainings/tree/choose_translation/di/choose_translation_module.dart';
 import 'package:study_app/features/words/tree/words_trainings/tree/collect_listened_word/di/collect_listened_word_module.dart';
 import 'package:study_app/features/words/tree/words_trainings/tree/collect_word/di/collect_word_module.dart';
+import 'package:study_app/features/words/tree/words_trainings/tree/training_success/di/training_success_module.dart';
 
 final getIt = GetIt.instance;
 
@@ -34,4 +35,6 @@ void initDependencyInjection() {
   initCollectListenedWordModule();
 
   initCollectWordModule();
+
+  initTrainingSuccessModule();
 }

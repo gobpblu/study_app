@@ -23,16 +23,12 @@ class WordsRepositoryImpl {
         title: 'Семья',
         topic: 'family',
         jsonPath: 'assets/words/topics/words_family.json',
-        audiosPath: 'assets/words/audio/family/',
-        picturesPath: 'assets/words/images/family/',
         iconPath: 'assets/icons/ic_family.svg',
       ),
       WordTopicTileItem(
         title: 'Рождение, свадьба, смерть',
         topic: 'birth_marriage_death',
         jsonPath: 'assets/words/topics/words_birth_marriage_death.json',
-        audiosPath: 'assets/words/audio/birth_marriage_death/',
-        picturesPath: 'assets/words/images/birth_marriage_death/',
         iconPath: 'assets/icons/birth_marriage_death.jpg',
       ),
     ];
@@ -44,9 +40,13 @@ class WordsRepositoryImpl {
         title: 'Appearance, 1 part',
         topic: 'appearance_1_part',
         jsonPath: 'assets/words/levels/intermediate/words_appearance_1_part.json',
-        audiosPath: 'assets/words/audio/family/',
-        picturesPath: 'assets/words/images/family/',
-        iconPath: 'assets/icons/ic_family.svg',
+        iconPath: 'assets/icons/ic_appearance_1_part.svg',
+      ),
+      WordTopicTileItem(
+        title: 'Face and hair',
+        topic: 'face_and_hair',
+        jsonPath: 'assets/words/levels/intermediate/face_and_hair.json',
+        iconPath: 'assets/icons/ic_face_and_hair.svg',
       ),
     ];
   }

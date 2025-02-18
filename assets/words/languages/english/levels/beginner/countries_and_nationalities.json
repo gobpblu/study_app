@@ -1,0 +1,412 @@
+[
+  {
+    "word": "Afghan",
+    "translation": "афганец, афганка, афганский",
+    "transcription": "[ˈæfgæn]"
+  },
+  {
+    "word": "Afghanistan",
+    "translation": "Афганистан",
+    "transcription": "[æfˈgænɪstæn]"
+  },
+  {
+    "word": "American",
+    "translation": "американец, американка, американский",
+    "transcription": "[əˈmerɪkən]"
+  },
+  {
+    "word": "Argentina",
+    "translation": "Аргентина",
+    "transcription": "[ɑːʤənˈtiːnə]"
+  },
+  {
+    "word": "Argentinian",
+    "translation": "аргентинец, аргентинка, аргентинский",
+    "transcription": "[ɑːʤənˈtɪnɪən]"
+  },
+  {
+    "word": "Australia",
+    "translation": "Австралия",
+    "transcription": "[ɔːˈstreɪlɪə]"
+  },
+  {
+    "word": "Australian",
+    "translation": "австралиец, австралийка, австралийский",
+    "transcription": "[ɒˈstreɪlɪən]"
+  },
+  {
+    "word": "Austria",
+    "translation": "Австрия",
+    "transcription": "[ɔːstrɪə]"
+  },
+  {
+    "word": "Austrian",
+    "translation": "австриец, австрийка, австрийский",
+    "transcription": "[ˈɒstrɪən]"
+  },
+  {
+    "word": "Azerbaijan",
+    "translation": "Азербайджан",
+    "transcription": "[æzə(r)baɪˈ(d)ʒɑːn]"
+  },
+  {
+    "word": "Azerbaijani",
+    "translation": "азербайджанец, азербайджанка, азербайджанский",
+    "transcription": "[æzəbaɪˈʤɑːni]"
+  },
+  {
+    "word": "Azeri",
+    "translation": "азербайджанец, азербайджанка, азербайджанский",
+    "transcription": "[əˈzerɪ]"
+  },
+  {
+    "word": "Brazil",
+    "translation": "Бразилия",
+    "transcription": "[brəˈzɪl]"
+  },
+  {
+    "word": "Brazilian",
+    "translation": "бразилец, бразильянка, бразильский",
+    "transcription": "[brəˈzɪlɪən]"
+  },
+  {
+    "word": "British",
+    "translation": "британец, британка, британский",
+    "transcription": "[ˈbrɪtɪʃ]"
+  },
+  {
+    "word": "Canada",
+    "translation": "Канада",
+    "transcription": "[ˈkænədə]"
+  },
+  {
+    "word": "Canadian",
+    "translation": "канадец, канадка, канадский",
+    "transcription": "[kəˈneɪdɪən]"
+  },
+  {
+    "word": "China",
+    "translation": "Китай",
+    "transcription": "[ˈʧaɪnə]"
+  },
+  {
+    "word": "Chinese",
+    "translation": "китаец, китаянка, китайский",
+    "transcription": "[ʧaɪˈniːz]"
+  },
+  {
+    "word": "Czech",
+    "translation": "чех, чешка, чешский",
+    "transcription": "[ʧek]"
+  },
+  {
+    "word": "Czech Republic",
+    "translation": "Чешская Республика",
+    "transcription": "[ʧek rɪˈpʌblɪk]"
+  },
+  {
+    "word": "Dutch",
+    "translation": "голландец, голландка, голландский",
+    "transcription": "[ˈdʌtʃ]"
+  },
+  {
+    "word": "Egypt",
+    "translation": "Египет",
+    "transcription": "[ˈɪʤɪpt]"
+  },
+  {
+    "word": "Egyptian",
+    "translation": "египтянин, египтянка, египетский",
+    "transcription": "[ɪˈʤɪpʃn]"
+  },
+  {
+    "word": "Filipino",
+    "translation": "филиппинец, филиппинка, филиппинский",
+    "transcription": "[fɪlɪˈpiːnəʊ]"
+  },
+  {
+    "word": "France",
+    "translation": "Франция",
+    "transcription": "[frɑːns]"
+  },
+  {
+    "word": "French",
+    "translation": "француз, француженка, французский",
+    "transcription": "[frenʧ]"
+  },
+  {
+    "word": "German",
+    "translation": "немец, немка, немецкий",
+    "transcription": "[ˈʤɜːmən]"
+  },
+  {
+    "word": "Germany",
+    "translation": "Германия",
+    "transcription": "[ˈʤɜːmənɪ]"
+  },
+  {
+    "word": "Greece",
+    "translation": "Греция",
+    "transcription": "[griːs]"
+  },
+  {
+    "word": "Greek",
+    "translation": "грек, гречанка, греческий",
+    "transcription": "[griːk]"
+  },
+  {
+    "word": "India",
+    "translation": "Индия",
+    "transcription": "[ˈɪndɪə]"
+  },
+  {
+    "word": "Indian",
+    "translation": "индус, индианка, индийский, индусский",
+    "transcription": "[ɪndɪən]"
+  },
+  {
+    "word": "Indonesia",
+    "translation": "Индонезия",
+    "transcription": "[ɪndə(ʊ)ˈniːʒə]"
+  },
+  {
+    "word": "Indonesian",
+    "translation": "индонезиец, индонезийка, индонезийский",
+    "transcription": "[ɪndəʊˈniːzjən]"
+  },
+  {
+    "word": "Irish",
+    "translation": "ирландец, ирландка, ирландский",
+    "transcription": "[ˈaɪərɪʃ]"
+  },
+  {
+    "word": "Japan",
+    "translation": "Япония",
+    "transcription": "[ʤəˈpæn]"
+  },
+  {
+    "word": "Japanese",
+    "translation": "японец, японка, японский",
+    "transcription": "[ʤæpəˈniːz]"
+  },
+  {
+    "word": "Kazakh",
+    "translation": "казах, казашка, казахский",
+    "transcription": "[kəˈzɑːh]"
+  },
+  {
+    "word": "Kazakhstan",
+    "translation": "Казахстан",
+    "transcription": "[kɒzɒkˈstən]"
+  },
+  {
+    "word": "Kyrgyz",
+    "translation": "кыргыз, кыргызка, кыргызский",
+    "transcription": "[ˈkɜːɡɪz]"
+  },
+  {
+    "word": "Kyrgyzstan",
+    "translation": "Кыргызстан",
+    "transcription": "[kɝː.ɡɪˈstɑːn]"
+  },
+  {
+    "word": "Mexican",
+    "translation": "мексиканец, мексиканка, мексиканский",
+    "transcription": "[ˈmeksɪkən]"
+  },
+  {
+    "word": "Mexico",
+    "translation": "Мексика",
+    "transcription": "[griːs]"
+  },
+  {
+    "word": "Mongolia",
+    "translation": "Монголия",
+    "transcription": "[mɒŋˈgəʊlɪə]"
+  },
+  {
+    "word": "Mongolian",
+    "translation": "монгол, монголка, монгольский",
+    "transcription": "[mɒnˈgəʊlɪən]"
+  },
+  {
+    "word": "Netherlands",
+    "translation": "Нидерланды, Голландия",
+    "transcription": "[ˈneðələndz]"
+  },
+  {
+    "word": "New Zealand",
+    "translation": "Новая Зеландия, новозеландский",
+    "transcription": "[njuː ˈziːlənd]"
+  },
+  {
+    "word": "New Zealander",
+    "translation": "новозеландец, новозеландка",
+    "transcription": "[mɒnˈgəʊlɪən]"
+  },
+  {
+    "word": "Pakistan",
+    "translation": "Пакистан",
+    "transcription": "[pɑːkɪˈstɑːn]"
+  },
+  {
+    "word": "Pakistani",
+    "translation": "пакистанец, пакистанка, пакистанский",
+    "transcription": "[mɒnˈgəʊlɪən]"
+  },
+  {
+    "word": "Philippines",
+    "translation": "Филиппины",
+    "transcription": "[ˈfɪlɪpiːnz]"
+  },
+  {
+    "word": "Poland",
+    "translation": "Польша",
+    "transcription": "[ˈpəʊlənd]"
+  },
+  {
+    "word": "Polish",
+    "translation": "поляк, полячка, польский",
+    "transcription": "[ˈpɒlɪʃ]"
+  },
+  {
+    "word": "Portugal",
+    "translation": "Португалия",
+    "transcription": "[ˈpɔːʧəɡəl]"
+  },
+  {
+    "word": "Portuguese",
+    "translation": "португалец, португалка, португальский",
+    "transcription": "[pɔːʧʊˈgiːz]"
+  },
+  {
+    "word": "Republic of Ireland",
+    "translation": "Ирландская Республика",
+    "transcription": "[rɪˈpʌblɪk əv ˈaɪələnd]"
+  },
+  {
+    "word": "Russia",
+    "translation": "Россия",
+    "transcription": "[ˈrʌʃə]"
+  },
+  {
+    "word": "Russian",
+    "translation": "русский, русская, российский",
+    "transcription": "[rʌʃn]"
+  },
+  {
+    "word": "Singapore",
+    "translation": "Сингапур",
+    "transcription": "[ˈsɪŋəpɔː]"
+  },
+  {
+    "word": "Singaporean",
+    "translation": "сингапурец, сингапурка, сингапурский",
+    "transcription": "[sɪŋəˈpɔːrɪən]"
+  },
+  {
+    "word": "Slovak",
+    "translation": "словак, словачка, словацкий",
+    "transcription": "[ˈsləʊvæk]"
+  },
+  {
+    "word": "Slovakia",
+    "translation": "Словакия",
+    "transcription": "[slə(ʊ)ˈvakɪə]"
+  },
+  {
+    "word": "South Africa",
+    "translation": "Южная Африка",
+    "transcription": "[saʊθ ˈæfrɪkə]"
+  },
+  {
+    "word": "South African",
+    "translation": "южноафреканец, южноафриканка, южноафриканский",
+    "transcription": "[saʊθ ˈæfrɪkən]"
+  },
+  {
+    "word": "South Korea",
+    "translation": "Южная Корея",
+    "transcription": "[saʊθ kəˈrɪə]"
+  },
+  {
+    "word": "South Korean",
+    "translation": "кореец, кореянка, корейский",
+    "transcription": "[saʊθ kəˈrɪən]"
+  },
+  {
+    "word": "Spain",
+    "translation": "Испания",
+    "transcription": "[speɪn]"
+  },
+  {
+    "word": "Spanish",
+    "translation": "испанец, испанка, испанский",
+    "transcription": "[ˈspænɪʃ]"
+  },
+  {
+    "word": "Swiss",
+    "translation": "швейцарец, швейцарка, швейцарский",
+    "transcription": "[swɪs]"
+  },
+  {
+    "word": "Switzerland",
+    "translation": "Швейцария",
+    "transcription": "[ˈswɪtsələnd]"
+  },
+  {
+    "word": "Thai",
+    "translation": "таец, тайка, тайский",
+    "transcription": "[taɪ]"
+  },
+  {
+    "word": "Thailand",
+    "translation": "Тайланд",
+    "transcription": "[ˈtaɪlænd]"
+  },
+  {
+    "word": "Turkey",
+    "translation": "Турция",
+    "transcription": "[ˈtɜːkɪ]"
+  },
+  {
+    "word": "Turkish",
+    "translation": "турок, турчанка, турецкий",
+    "transcription": "[ˈtɜːkɪʃ]"
+  },
+  {
+    "word": "Turkmen",
+    "translation": "туркмен, туркменка, туркменский",
+    "transcription": "[ˈtɜːkmən]"
+  },
+  {
+    "word": "Turkmenistan",
+    "translation": "Туркменистан",
+    "transcription": "[tɜːkmenɪˈstɑːn]"
+  },
+  {
+    "word": "United Arab Emirates UAE",
+    "translation": "Объединенные Арабские Эмираты",
+    "transcription": "[juːnaɪtɪd ærəb ˈɛmɪrɪts]"
+  },
+  {
+    "word": "United Kingdom",
+    "translation": "Великобритания",
+    "transcription": "[ˈjʊˈnaɪtɪd ˈkɪŋdəm]"
+  },
+  {
+    "word": "United States of America US",
+    "translation": "Соединенные Штаты Америки",
+    "transcription": "[juːnaɪtid ˈsteɪts ɒv əˈmerɪkə]"
+  },
+  {
+    "word": "Uzbek",
+    "translation": "узбек, узбечка, узбекский",
+    "transcription": "[ˈʊzbek]"
+  },
+  {
+    "word": "Uzbekistan",
+    "translation": "Узбекистан",
+    "transcription": "[uːzbəkɪˈstɑːn]"
+  }
+]

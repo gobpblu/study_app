@@ -10,16 +10,21 @@ import 'package:study_app/generated/l10n.dart';
 import '../../../core/res/fonts.dart';
 
 class DisplayNamePage extends StatelessWidget {
-  const DisplayNamePage({Key? key, this.user}) : super(key: key);
+  const DisplayNamePage({Key? key, this.user, this.isFromProfile = false}) : super(key: key);
 
   final User? user;
+  final bool isFromProfile;
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state.isUsernameChanged) {
-          Get.off(const HomePage());
+          if (isFromProfile) {
+            Get.back();
+          } else {
+            Get.off(const HomePage());
+          }
         }
       },
       builder: (context, state) {

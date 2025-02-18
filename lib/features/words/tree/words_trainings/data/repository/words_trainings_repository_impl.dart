@@ -29,23 +29,10 @@ class WordsTrainingsRepositoryImpl implements WordsTrainingsRepository {
         _realtimeDatabaseService = realtimeDatabaseService;
 
   @override
-  Future<List<Word>> getLocalWords({required String topic, required String onlyTopic}) async {
+  Future<List<RawWord>> getRawWords({required String topic}) async {
     final List<Word> words = [];
-    final jsonWords = await rootBundle.loadString(topic /*'assets/words/topics/words_$topic.json'*/);
-    final rawWords = (json.decode(jsonWords) as List<dynamic>).map((e) => RawWord.fromJson(e)).toList();
-    final topicDbAudios = await _dbService.getAudiosByTopic(onlyTopic);
-    for (var item in rawWords) {
-      final word = Word(
-        word: item.word,
-        transcription: item.transcription,
-        translation: item.translation,
-        // image: 'assets/words/images/$topic/${item.word}.jpg',
-        audio: _getAudio(item.word, topic),
-        audioBytes: await _getAudioBytes(topicDbAudios, item.word, onlyTopic),
-      );
-      words.add(word);
-    }
-    return words;
+    final jsonWords = await rootBundle.loadString(topic);
+    return (json.decode(jsonWords) as List<dynamic>).map((e) => RawWord.fromJson(e)).toList();
   }
 
   @override
@@ -61,7 +48,8 @@ class WordsTrainingsRepositoryImpl implements WordsTrainingsRepository {
     }
   }
 
-  String _getAudio(String word, String topic) {
+  @override
+  String getAudio({required String word, required String topic}) {
     if (word.contains(' ')) {
       final newWord = word.replaceAll(' ', '_');
       return 'words/audio/$topic/$newWord.mp3';
@@ -70,7 +58,8 @@ class WordsTrainingsRepositoryImpl implements WordsTrainingsRepository {
     }
   }
 
-  Future<Uint8List?> _getAudioBytes(List<AudioEntity> dbAudios, String word, String topic) async {
+  @override
+  Future<Uint8List?> getAudioBytes(List<AudioEntity> dbAudios, String word, String topic) async {
     final dbAudio = dbAudios.firstWhereOrNull((element) => element.name == word);
     if (dbAudio != null) {
       return dbAudio.audio;
@@ -83,5 +72,20 @@ class WordsTrainingsRepositoryImpl implements WordsTrainingsRepository {
       }
     }
     return null;
+  }
+
+  @override
+  Future<List<AudioEntity>> getDbAudios({required String topic}) {
+    return _dbService.getAudiosByTopic(topic);
+  }
+
+  @override
+  Future<Map<String, Future<Uint8List?>>?> getStorageAudios({required String topic}) {
+    return _audioStorage.getAudios(topic: topic);
+  }
+
+  @override
+  Future saveAudio({required AudioEntity audio}) {
+    return _dbService.insertItem(audio);
   }
 }

@@ -22,7 +22,7 @@ class WordField {
 
 class Word extends Equatable {
   final String word;
-  final String transcription;
+  final String? transcription;
   final String translation;
   final String? image;
   final String audio;
@@ -32,7 +32,7 @@ class Word extends Equatable {
 
   const Word({
     required this.word,
-    required this.transcription,
+    this.transcription,
     required this.translation,
     this.image,
     required this.audio,

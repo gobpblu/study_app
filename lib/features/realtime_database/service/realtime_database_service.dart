@@ -33,7 +33,7 @@ class RealtimeDatabaseService {
   }
 
   Future<bool> uploadRatingsFromLocal({required Map<dynamic, dynamic> map}) async {
-    final uid = _userRepository.getUser().uniqueId;
+    final uid = _userRepository.getUser()?.uniqueId;
 
     DatabaseReference ref = db.ref("words/ratings/topics/$uid");
     TransactionResult result = await ref.runTransaction((Object? ratingObject) {
@@ -67,7 +67,7 @@ class RealtimeDatabaseService {
                 );
               } else if (topicEntry.value is Map) {
                 print('I work is map: ${topicEntry.value}');
-                final words = topicEntry.value as Map<String, dynamic>;
+                final words = topicEntry.value as Map<dynamic, dynamic>;
                 for (var word in words.entries) {
                   print('word: $word');
                   (updateMap[entry.key][topicEntry.key] as Map)
@@ -195,11 +195,14 @@ class RealtimeDatabaseService {
     final userRef = db.ref(userUrl);
     TransactionResult result = await userRef.runTransaction((Object? currentUser) {
       Map<String, dynamic> userMap;
+      print('currentUser: $currentUser');
       if (currentUser == null) {
         userMap = {'username': username};
       } else {
         userMap = Map<String, dynamic>.from(currentUser as Map);
-        userMap['username'] = userMap['username'] ?? username;
+        print('userMap: $userMap');
+        userMap['username'] = username;
+        print('userMap after editing: $userMap');
       }
       return Transaction.success(userMap);
     });
@@ -213,8 +216,18 @@ class RealtimeDatabaseService {
     final topicsRef = db.ref(topicsUrl);
     final snapshot = await topicsRef.get();
     final userRatings = <UserRating>[];
+    var userNames = await getUsernames();
     for (var user in snapshot.children) {
-      final username = await getUsername(user.key as String);
+      final key = user.key;
+      if (userNames[key] == null && key != null) {
+        final user = _userRepository.getUser();
+        if (user != null) {
+          await saveUsernameByUid(user.name, key);
+          userNames = await getUsernames();
+        }
+      }
+      final map = userNames[user.key] as Map<Object?, Object?>;
+      final username = map['username'] as String;
       final points = (user.value as Map)[topic]?['common_rating'] ?? 0;
       userRatings.add(UserRating(username: username, points: points));
     }
@@ -228,11 +241,23 @@ class RealtimeDatabaseService {
     return (snapshot.value as Map)['username'];
   }
 
+  Future<Map<Object?, Object?>> getUsernames() async {
+    final userUrl = 'users';
+    final userRef = db.ref(userUrl);
+    final snapshot = await userRef.get();
+    print('SNAPSHOT => ${snapshot.value}');
+    return snapshot.value as Map<Object?, Object?>;
+  }
+
   Future<int> getTopicRating(String topic) async {
-    final uid = _userRepository.getUser().uniqueId;
+    final uid = _userRepository.getUser()?.uniqueId;
     final ratingUrl = 'words/ratings/topics/$uid/$topic/';
     final ratingRef = db.ref(ratingUrl);
     final snapshot = await ratingRef.get();
     return snapshot.value is Map ? (snapshot.value as Map)['common_rating'] : 0;
+  }
+
+  Future uploadUsername(String userKey) async {
+
   }
 }

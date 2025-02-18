@@ -7,6 +7,7 @@
   "word_tile_1": "Урок 1",
 
   "sign_in": "Войти",
+  "register": "Зарегистрироваться",
   "sign_in_with_gogle": "Google",
   "sign_in_with_login_and_password": "Логин и пароль",
 
@@ -23,9 +24,19 @@
   "auth_error_invalid_email_description": "Введите правильный адрес электронной почты",
   "auth_error_invalid_password_title": "Неправильный пароль",
   "auth_error_invalid_password_description": "Введите ваш пароль",
+  "auth_error_user_not_found_title": "Пользователь не найден",
+  "auth_error_user_not_found_description": "Попробуйте зарегистрировать данного пользователя",
 
   "levels_title": "Уровни",
 
-  "profile_title": "Профиль"
+  "profile_title": "Профиль",
+  "profile_button_change_username": "Сменить имя пользователя",
+  "profile_button_change_study_language": "Сменить язык обучения",
 
+  "words_beginner_countries_and_nationalities": "Страны и национальности",
+
+  "languages_title": "Выбор языка",
+  "language_type_english": "Английский",
+  "language_type_kyrgyz": "Кыргызский",
+  "language_button_save": "Сохранить"
 }

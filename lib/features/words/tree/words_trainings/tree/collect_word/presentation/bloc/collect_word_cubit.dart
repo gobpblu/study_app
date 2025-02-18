@@ -26,7 +26,7 @@ class CollectWordCubit extends Cubit<CollectWordState> {
           currentWordMistakes: 0,
         ));
 
-  final soundsPlayer = AudioPlayer();
+  final _player = AudioPlayer();
 
   static Map<String, int> _generateMap(String word) {
     Map<String, int> map = {};
@@ -45,15 +45,15 @@ class CollectWordCubit extends Cubit<CollectWordState> {
   }
 
   Future playRightSound() async {
-    await soundsPlayer.stop();
-    await soundsPlayer.setSourceAsset('audio/signals/right_sound.mp3');
-    soundsPlayer.resume();
+    await _player.stop();
+    await _player.setSourceAsset('audio/signals/right_sound.mp3');
+    _player.resume();
   }
 
   Future playWrongSound() async {
-    await soundsPlayer.stop();
-    await soundsPlayer.setSourceAsset('audio/signals/mistake_sound.mp3');
-    soundsPlayer.resume();
+    await _player.stop();
+    await _player.setSourceAsset('audio/signals/mistake_sound.mp3');
+    _player.resume();
   }
 
   void addNewCharacter(String character, int index) {
@@ -68,12 +68,14 @@ class CollectWordCubit extends Cubit<CollectWordState> {
 
   bool isCorrectCharacter(String character) => character == state.currentWord.word[state.guessedChars];
 
-  void lastWordSuccessEmit() {
+  void lastWordSuccessEmit() async {
+    await playAudio();
     final wordWithPoints = WordWithPoints(
       word: state.currentWord.word,
       points: state.currentWordPoints + 1,
       isRight: state.currentWordMistakes <= 1,
     );
+
     emit(state.copyWith(
       status: WordStatus.lastSuccess,
       points: state.points + 1,
@@ -88,7 +90,8 @@ class CollectWordCubit extends Cubit<CollectWordState> {
       status: WordStatus.success,
       isLoading: true,
     ));
-    await Future.delayed(const Duration(milliseconds: 300));
+    await playAudio();
+    // await Future.delayed(const Duration(milliseconds: 1500));
     emit(state.copyWith(
       status: WordStatus.process,
       currentWord: state.words[state.index + 1],
@@ -136,5 +139,29 @@ class CollectWordCubit extends Cubit<CollectWordState> {
     } else {
       await emitMistake();
     }
+  }
+
+  Future playAudio() async {
+    emit(state.copyWith(shouldAnimate: true));
+    await _setAudio();
+    emit(state.copyWith(shouldAnimate: false));
+    // await Future.delayed(const Duration(seconds: 3));
+    // if (index == state.index) {
+    //   emit(state.copyWith(shouldAnimate: true));
+    //   await _setAudio();
+    //   emit(state.copyWith(shouldAnimate: false));
+    // }
+  }
+
+  Future _setAudio() async {
+    final audioBytes = state.currentWord.audioBytes;
+    if (audioBytes != null) {
+      await _player.setSourceBytes(audioBytes);
+    } else {
+      await _player.setSourceAsset(state.currentWord.audio);
+    }
+    await _player.resume();
+    final duration = await _player.getDuration();
+    // if (duration != null) await Future.delayed(duration);
   }
 }

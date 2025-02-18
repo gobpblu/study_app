@@ -14,13 +14,13 @@ part 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc()
       : super(const AuthState(
-    isLoading: false,
-    status: BlocStatusEnum.initial,
-    username: '',
-    isUsernameChanged: false,
-    email: '',
-    password: '',
-  )) {
+          isLoading: false,
+          status: BlocStatusEnum.initial,
+          username: '',
+          isUsernameChanged: false,
+          email: '',
+          password: '',
+        )) {
     on<UsernameChanged>(_onUsernameChanged);
     on<SignInWithGoogle>(_onSignInWithGoogle);
     on<UpdateUsername>(_onUpdateUsername);
@@ -28,36 +28,39 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   final RealtimeDatabaseService db = getIt();
 
-  void _onUsernameChanged(UsernameChanged event,
-      Emitter<AuthState> emit,) {
-    emit(state.copyWith(
-        status: BlocStatusEnum.success, username: event.username));
+  void _onUsernameChanged(
+    UsernameChanged event,
+    Emitter<AuthState> emit,
+  ) {
+    emit(state.copyWith(status: BlocStatusEnum.success, username: event.username));
   }
 
-  Future _onUpdateUsername(UpdateUsername event,
-      Emitter<AuthState> emit,) async {
+  Future _onUpdateUsername(
+    UpdateUsername event,
+    Emitter<AuthState> emit,
+  ) async {
     emit(state.copyWith(isLoading: true));
+    print('USERNAME: ${state.username}');
+    print('USER: ${event.user}');
     await event.user?.updateDisplayName(state.username);
     if (event.user != null) {
       final isCommitted = await db.saveUsernameByUid(state.username, event.user!.uid);
       if (isCommitted) {
-        emit(state.copyWith(
-            status: BlocStatusEnum.success, isUsernameChanged: true));
+        emit(state.copyWith(status: BlocStatusEnum.success, isUsernameChanged: true));
       }
     }
-
   }
 
-  Future _onSignInWithGoogle(SignInWithGoogle event,
-      Emitter<AuthState> emit,) async {
+  Future _onSignInWithGoogle(
+    SignInWithGoogle event,
+    Emitter<AuthState> emit,
+  ) async {
     // await FirebaseAuth.instance.signInWithProvider(GoogleAuthProvider());
 
     final isSignedIn = await GoogleSignIn().isSignedIn();
     debugPrint('isSignedIn: ${isSignedIn}');
 
-    final GoogleSignInAccount? googleUser = await GoogleSignIn(
-      signInOption: SignInOption.standard
-    ).signIn();
+    final GoogleSignInAccount? googleUser = await GoogleSignIn(signInOption: SignInOption.standard).signIn();
     if (googleUser == null) return;
     // debugPrint('googleUser: ${googleUser}');
     // Obtain the auth details from the request.
@@ -71,9 +74,5 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     final UserCredential googleUserCredential = await FirebaseAuth.instance.signInWithCredential(googleCredential);
 
     debugPrint('googleUserCredential: ${googleUserCredential.user}');
-
-
   }
-
-
 }

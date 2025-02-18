@@ -7,6 +7,7 @@
   "word_tile_1": "Lesson 1",
 
   "sign_in": "Sign in",
+  "register": "Register",
   "sign_in_with_gogle": "Google",
   "sign_in_with_login_and_password": "Login and password",
 
@@ -23,9 +24,19 @@
   "auth_error_invalid_email_description": "Enter correct email address",
   "auth_error_invalid_password_title": "Invalid password",
   "auth_error_invalid_password_description": "Enter your password",
+  "auth_error_user_not_found_title": "User not found",
+  "auth_error_user_not_found_description": "Try to register this user",
 
   "levels_title": "Levels",
 
-  "profile_title": "Profile"
+  "profile_title": "Profile",
+  "profile_button_change_username": "Change username",
+  "profile_button_change_study_language": "Change study language",
 
+  "words_beginner_countries_and_nationalities": "Countries and nationalities",
+
+  "languages_title": "Language selection",
+  "language_type_english": "English",
+  "language_type_kyrgyz": "Kyrgyz",
+  "language_button_save": "Save"
 }

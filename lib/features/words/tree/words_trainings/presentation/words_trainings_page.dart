@@ -155,8 +155,18 @@ class _Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isLoading = context.select((WordsTrainingsCubit cubit) => cubit.state.isLoading);
+    final loadingText = context.select((WordsTrainingsCubit cubit) => cubit.state.loadingText);
     if (isLoading) {
-      return const Center(child: CircularProgressIndicator());
+      return Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const CircularProgressIndicator(),
+              const Text('Идёт загрузка слов...'),
+              Text(loadingText),
+            ],
+          ),
+      );
     }
     return SingleChildScrollView(
       child: Column(

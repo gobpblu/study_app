@@ -1,11 +1,11 @@
 class RawWord {
   final String word;
-  final String transcription;
+  final String? transcription;
   final String translation;
 
   const RawWord({
     required this.word,
-    required this.transcription,
+    this.transcription,
     required this.translation,
   });
 
@@ -27,8 +27,7 @@ class RawWord {
   }) =>
       RawWord(
         word: word ?? this.word,
-        transcription:
-            transcription ?? this.transcription,
+        transcription: transcription ?? this.transcription,
         translation: translation ?? this.translation,
       );
 

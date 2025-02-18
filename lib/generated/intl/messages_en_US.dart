@@ -30,6 +30,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Enter your password"),
         "auth_error_invalid_password_title":
             MessageLookupByLibrary.simpleMessage("Invalid password"),
+        "auth_error_user_not_found_description":
+            MessageLookupByLibrary.simpleMessage("Try to register this user"),
+        "auth_error_user_not_found_title":
+            MessageLookupByLibrary.simpleMessage("User not found"),
         "auth_log_in":
             MessageLookupByLibrary.simpleMessage("Log in to your account"),
         "auth_log_in_to_save": MessageLookupByLibrary.simpleMessage(
@@ -41,14 +45,27 @@ class MessageLookup extends MessageLookupByLibrary {
         "bottom_nav_rules": MessageLookupByLibrary.simpleMessage("RULES"),
         "bottom_nav_words": MessageLookupByLibrary.simpleMessage("WORDS"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
+        "language_button_save": MessageLookupByLibrary.simpleMessage("Save"),
+        "language_type_english":
+            MessageLookupByLibrary.simpleMessage("English"),
+        "language_type_kyrgyz": MessageLookupByLibrary.simpleMessage("Kyrgyz"),
+        "languages_title":
+            MessageLookupByLibrary.simpleMessage("Language selection"),
         "levels_title": MessageLookupByLibrary.simpleMessage("Levels"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
+        "profile_button_change_study_language":
+            MessageLookupByLibrary.simpleMessage("Change study language"),
+        "profile_button_change_username":
+            MessageLookupByLibrary.simpleMessage("Change username"),
         "profile_title": MessageLookupByLibrary.simpleMessage("Profile"),
+        "register": MessageLookupByLibrary.simpleMessage("Register"),
         "sign_in": MessageLookupByLibrary.simpleMessage("Sign in"),
         "sign_in_with_gogle": MessageLookupByLibrary.simpleMessage("Google"),
         "sign_in_with_login_and_password":
             MessageLookupByLibrary.simpleMessage("Login and password"),
-        "word_tile_1": MessageLookupByLibrary.simpleMessage("Lesson 1")
+        "word_tile_1": MessageLookupByLibrary.simpleMessage("Lesson 1"),
+        "words_beginner_countries_and_nationalities":
+            MessageLookupByLibrary.simpleMessage("Countries and nationalities")
       };
 }

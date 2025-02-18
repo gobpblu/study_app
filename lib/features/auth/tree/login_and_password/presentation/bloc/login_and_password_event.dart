@@ -8,3 +8,5 @@ abstract class LoginAndPasswordEvent extends Equatable {
 }
 
 class SignInWithLoginAndPassword extends LoginAndPasswordEvent {}
+
+class RegisterWithLoginAndPassword extends LoginAndPasswordEvent {}

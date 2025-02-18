@@ -58,10 +58,12 @@ flutter:
     - assets/images/
     - assets/fonts/
     - assets/icons/
+    - assets/icons/languages/
     - assets/images/
     - assets/texts/
     - assets/words/topics/
-    - assets/words/levels/intermediate/
+    - assets/words/languages/english/levels/beginner/
+    - assets/words/languages/english/levels/intermediate/
     - assets/words/audio/
     - assets/words/audio/family/
     - assets/words/audio/birth_marriage_death/

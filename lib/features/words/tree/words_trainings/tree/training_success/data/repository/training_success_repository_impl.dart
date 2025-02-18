@@ -24,6 +24,7 @@ class TrainingSuccessRepositoryImpl extends TrainingSuccessRepository {
     required List<WordWithPoints> words,
   }) async {
     final user = _userRepository.getUser();
+    if (user == null) return;
     await _ratingsHive.writeRatings(topic: topic, uid: user.uniqueId, points: points, words: words, training: training);
     final hiveResult = await _ratingsHive.getRatings();
     print('Hive Result: $hiveResult');

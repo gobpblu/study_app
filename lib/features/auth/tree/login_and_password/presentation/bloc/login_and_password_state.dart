@@ -1,10 +1,16 @@
 part of 'login_and_password_bloc.dart';
 
-abstract class LoginAndPasswordState extends Equatable {
-  const LoginAndPasswordState();
-}
+class LoginAndPasswordState extends Equatable {
+  const LoginAndPasswordState({this.needPop = false});
 
-class LoginAndPasswordInitial extends LoginAndPasswordState {
+  final bool needPop;
+
+  LoginAndPasswordState copyWith({bool? needPop}) {
+    return LoginAndPasswordState(
+      needPop: needPop ?? this.needPop,
+    );
+  }
+
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [needPop];
 }

@@ -10,4 +10,11 @@ class AuthFirebaseService {
     return _auth.signOut();
   }
 
+  Stream<User?> observeAuthState() {
+    return _auth.authStateChanges();
+  }
+
+  Stream<User?> observeUserChanges() {
+    return _auth.userChanges();
+  }
 }

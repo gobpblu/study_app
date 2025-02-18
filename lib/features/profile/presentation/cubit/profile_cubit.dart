@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:study_app/features/auth/domain/auth_interactor.dart';
-import 'package:study_app/features/auth/domain/models/user.dart';
 
 part 'profile_state.dart';
 
@@ -14,8 +14,11 @@ class ProfileCubit extends Cubit<ProfileState> {
   final AuthInteractor _authInteractor;
 
   Future<void> getUser() async {
-    final user = _authInteractor.getCurrentUser();
-    emit(ProfileState(user: user));
+    // final user = _authInteractor.getCurrentFirebaseUser();
+    _authInteractor.observeRemoteUserChanges().listen((user) {
+      print('user: $user');
+      emit(ProfileState(user: user));
+    });
   }
 
   Future<void> logout() async {

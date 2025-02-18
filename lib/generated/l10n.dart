@@ -100,6 +100,16 @@ class S {
     );
   }
 
+  /// `Зарегистрироваться`
+  String get register {
+    return Intl.message(
+      'Зарегистрироваться',
+      name: 'register',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Google`
   String get sign_in_with_gogle {
     return Intl.message(
@@ -230,6 +240,26 @@ class S {
     );
   }
 
+  /// `Пользователь не найден`
+  String get auth_error_user_not_found_title {
+    return Intl.message(
+      'Пользователь не найден',
+      name: 'auth_error_user_not_found_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Попробуйте зарегистрировать данного пользователя`
+  String get auth_error_user_not_found_description {
+    return Intl.message(
+      'Попробуйте зарегистрировать данного пользователя',
+      name: 'auth_error_user_not_found_description',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Уровни`
   String get levels_title {
     return Intl.message(
@@ -245,6 +275,76 @@ class S {
     return Intl.message(
       'Профиль',
       name: 'profile_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Сменить имя пользователя`
+  String get profile_button_change_username {
+    return Intl.message(
+      'Сменить имя пользователя',
+      name: 'profile_button_change_username',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Сменить язык обучения`
+  String get profile_button_change_study_language {
+    return Intl.message(
+      'Сменить язык обучения',
+      name: 'profile_button_change_study_language',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Страны и национальности`
+  String get words_beginner_countries_and_nationalities {
+    return Intl.message(
+      'Страны и национальности',
+      name: 'words_beginner_countries_and_nationalities',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Выбор языка`
+  String get languages_title {
+    return Intl.message(
+      'Выбор языка',
+      name: 'languages_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Английский`
+  String get language_type_english {
+    return Intl.message(
+      'Английский',
+      name: 'language_type_english',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Кыргызский`
+  String get language_type_kyrgyz {
+    return Intl.message(
+      'Кыргызский',
+      name: 'language_type_kyrgyz',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Сохранить`
+  String get language_button_save {
+    return Intl.message(
+      'Сохранить',
+      name: 'language_button_save',
       desc: '',
       args: [],
     );
